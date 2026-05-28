@@ -216,3 +216,20 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# данные
+data/*.csv
+data/*.parquet
+data/*.xlsx
+
+# окружение
+.venv/
+.env
+
+# jupyter
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# результаты
+experiments/results/tables/*.csv
+experiments/results/figures/*.png
