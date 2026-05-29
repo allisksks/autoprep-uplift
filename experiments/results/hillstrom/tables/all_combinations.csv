@@ -1,0 +1,9 @@
+combination,n_models,strategy,models,weights,holdout_lower_ci,cv_lower_ci,gap
+t_learner_ridge+hurdle,2,gap_weights,"['t_learner_ridge', 'hurdle']","{'t_learner_ridge': 0.5025844930417496, 'hurdle': 0.4974155069582505}",0.1,,
+t_learner_ridge+hurdle,2,ci_weights,"['t_learner_ridge', 'hurdle']","{'t_learner_ridge': 0.5293243853508253, 'hurdle': 0.47067554041013066}",0.0984,,
+all_models,2,ci_weights,"['t_learner_ridge', 'hurdle']","{'t_learner_ridge': 0.5293243853508253, 'hurdle': 0.47067554041013066}",0.0984,,
+hurdle,1,single,['hurdle'],{'hurdle': 1.0},0.0902,0.0634,0.026400000000000007
+all_models,2,equal,"['t_learner_ridge', 'hurdle']","{'t_learner_ridge': 0.5, 'hurdle': 0.5}",0.0895,,
+t_learner_ridge+hurdle,2,equal,"['t_learner_ridge', 'hurdle']","{'t_learner_ridge': 0.5, 'hurdle': 0.5}",0.0895,,
+t_learner_ridge+hurdle,2,rank_weights,"['t_learner_ridge', 'hurdle']","{'t_learner_ridge': 0.6666666666666666, 'hurdle': 0.3333333333333333}",0.0838,,
+t_learner_ridge,1,single,['t_learner_ridge'],{'t_learner_ridge': 1.0},0.075,0.0713,0.025099999999999997
