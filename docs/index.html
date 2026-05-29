@@ -235,14 +235,17 @@ footer{padding:40px 80px;border-top:1px solid var(--border);display:flex;justify
     <button class="tab-btn" onclick="showTab('hillstrom')" id="tab-hillstrom">
       <span class="tab-dot" style="background:var(--teal)"></span> Hillstrom
     </button>
-    <button class="tab-btn disabled" id="tab-criteo">
-      <span class="tab-dot coming"></span> Criteo v2
+    <button class="tab-btn" onclick="showTab('megafon')" id="tab-megafon">
+      <span class="tab-dot" style="background:var(--teal)"></span> Megafon
     </button>
     <button class="tab-btn" onclick="showTab('lenta')" id="tab-lenta">
       <span class="tab-dot" style="background:var(--teal)"></span> Lenta
     </button>
-    <button class="tab-btn disabled" id="tab-starbucks">
-      <span class="tab-dot coming"></span> Starbucks
+    <button class="tab-btn" onclick="showTab('synthetic')" id="tab-synthetic">
+      <span class="tab-dot" style="background:var(--purple)"></span> Synthetic
+    </button>
+    <button class="tab-btn" onclick="showTab('company')" id="tab-company">
+      <span class="tab-dot" style="background:var(--amber)"></span> Your Company
     </button>
   </div>
 </nav>
@@ -261,7 +264,7 @@ footer{padding:40px 80px;border-top:1px solid var(--border);display:flex;justify
   </div>
   <div class="hero-stats fade-up">
     <div><span class="stat-num">6</span><span class="stat-label">meta-learners</span></div>
-    <div><span class="stat-num">108</span><span class="stat-label">combinations tested</span></div>
+    <div><span class="stat-num">5</span><span class="stat-label">datasets validated</span></div>
     <div><span class="stat-num">5</span><span class="stat-label">validation checks</span></div>
     <div><span class="stat-num">3</span><span class="stat-label">metrics</span></div>
   </div>
@@ -604,13 +607,109 @@ pip install -r requirements.txt<br><br>
 
 </div>
 
-<div class="page" id="page-criteo">
-  <div class="coming-soon">
-    <div class="coming-soon-icon">📊</div>
-    <h3>Criteo Uplift v2</h3>
-    <p>Results coming soon. 13.98M rows, binary outcome, near-perfect randomization.</p>
-    <a href="https://huggingface.co/datasets/criteo/criteo-uplift" target="_blank" class="btn btn-ghost" style="margin-top:8px">Download dataset ↗</a>
+<div class="page" id="page-megafon">
+
+<div class="ds-hero">
+  <div class="ds-badge">📱 Public RCT</div>
+  <h1>Megafon <span>Telecom</span></h1>
+  <p class="ds-desc">Russian telecom company marketing campaign. Binary response outcome. Near-perfect 50/50 balance. Available via scikit-uplift. High uplift signal — best dataset for model discrimination.</p>
+  <div class="meta-row">
+    <div class="meta-item"><span class="meta-label">Train</span><span class="meta-value">480,000 rows</span></div>
+    <div class="meta-item"><span class="meta-label">Test</span><span class="meta-value">120,000 rows</span></div>
+    <div class="meta-item"><span class="meta-label">Features</span><span class="meta-value">50</span></div>
+    <div class="meta-item"><span class="meta-label">Outcome</span><span class="meta-value">target (binary)</span></div>
+    <div class="meta-item"><span class="meta-label">Zero rate</span><span class="meta-value">79.6%</span></div>
+    <div class="meta-item"><span class="meta-label">ATE</span><span class="meta-value">0.0498</span></div>
+    <div class="meta-item"><span class="meta-label">Balance</span><span class="meta-value">50.1% / 49.9%</span></div>
+    <div class="meta-item"><span class="meta-label">Source</span><span class="meta-value"><a href="https://github.com/maks-sh/scikit-uplift" target="_blank" style="color:var(--purple)">scikit-uplift ↗</a></span></div>
   </div>
+</div>
+
+<section>
+  <div class="section-label">Step 1 — Data validation</div>
+  <h2>Validation <span>results</span></h2>
+  <div class="info-grid">
+    <div class="info-card"><div class="info-label">Randomization</div><div class="info-value">1 imbalanced feature / 50. Near-perfect randomization.</div></div>
+    <div class="info-card"><div class="info-label">Leakage</div><div class="info-value" style="color:var(--teal)">✓ No leakage detected.</div></div>
+    <div class="info-card"><div class="info-label">Balance</div><div class="info-value" style="color:var(--teal)">✓ 50.1% / 49.9% — ideal balance. Best conditions for all models.</div></div>
+    <div class="info-card"><div class="info-label">Note</div><div class="info-value">Highest ATE (0.05) and clearest signal across all datasets. Ideal for benchmarking model differences.</div></div>
+  </div>
+</section>
+
+<section style="background:var(--bg2)">
+  <div class="section-label">Step 2 — Cross-validation</div>
+  <h2>CV results <span>all 6 models</span></h2>
+  <p style="color:var(--text-dim);font-size:14px;margin-bottom:24px">Fast mode: 100K sample, 3-fold CV, bootstrap n=100. Metric: uplift@10 lower 80% CI.</p>
+  <table class="cv-table">
+    <thead><tr><th>#</th><th>Model</th><th>CV point</th><th>CV lower CI</th><th>Gap</th></tr></thead>
+    <tbody>
+      <tr class="best"><td class="rank-1">1</td><td class="model-name">Hurdle</td><td>0.4004</td><td class="rank-1">0.3816</td><td>0.019</td></tr>
+      <tr><td class="rank-2">2</td><td class="model-name">DR-learner</td><td>0.3815</td><td class="rank-2">0.3617</td><td>0.020</td></tr>
+      <tr><td class="rank-3">3</td><td class="model-name">R-learner</td><td>0.3761</td><td class="rank-3">0.3577</td><td>0.018</td></tr>
+      <tr><td>4</td><td class="model-name">T-learner LGB</td><td>0.3620</td><td>0.3427</td><td>0.019</td></tr>
+      <tr><td>5</td><td class="model-name">X-learner</td><td>0.3531</td><td>0.3355</td><td>0.018</td></tr>
+      <tr><td>6</td><td class="model-name">T-learner Ridge</td><td>0.1274</td><td>0.1064</td><td>0.021</td></tr>
+    </tbody>
+  </table>
+  <p style="color:var(--text-dim);font-size:13px;margin-top:16px">Key insight: Hurdle #1 — high zero rate (79.6%) rewards two-stage modeling. T-Ridge last — linear model insufficient for complex telecom patterns.</p>
+</section>
+
+<section>
+  <div class="section-label">Step 2 — Visualization</div>
+  <h2>Model <span>comparison</span></h2>
+  <div class="figures-grid">
+    <div class="figure-wrap"><div class="figure-label">CV point vs lower CI</div><img src="assets/megafon/model_comparison.png" alt="Model comparison"></div>
+  </div>
+</section>
+
+<section style="background:var(--bg2)">
+  <div class="section-label">Step 3 — Ensemble</div>
+  <h2>Agent <span>recommendation</span></h2>
+  <div class="agent-box">
+    <div class="agent-header">
+      <div class="agent-icon">🤖</div>
+      <div><div class="agent-title">Ensemble Agent</div><div class="agent-subtitle">claude-sonnet-4-5 · 108 combinations evaluated</div></div>
+    </div>
+    <div class="decision-row">
+      <div><div class="decision-label">Selected</div><div class="decision-value">T-LGB + T-Ridge + Hurdle</div></div>
+      <div><div class="decision-label">Strategy</div><div class="decision-value">equal weights</div></div>
+      <div><div class="decision-label">Holdout lower CI</div><div class="decision-value">0.4523</div></div>
+    </div>
+    <div class="weights-row">
+      <div class="weight-chip"><span class="weight-model">t_learner_lgb</span> <span class="weight-val">0.333</span></div>
+      <div class="weight-chip"><span class="weight-model">t_learner_ridge</span> <span class="weight-val">0.333</span></div>
+      <div class="weight-chip"><span class="weight-model">hurdle</span> <span class="weight-val">0.333</span></div>
+    </div>
+    <div class="explanation">T-LGB + T-Ridge + Hurdle achieves holdout lower CI = 0.4523. Notably T-Ridge was last in CV (0.1064) but contributes to winning ensemble — capturing different signal. High diversity: tree boosting vs linear vs two-stage models. Equal weighting outperforms complex schemes.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Step 4 — Final metrics</div>
+  <h2>Holdout <span>metrics</span></h2>
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="metric-name">uplift@5%</div><div class="metric-value good">0.6160</div><div class="metric-sub">lower 80% CI</div></div>
+    <div class="metric-card"><div class="metric-name">uplift@10%</div><div class="metric-value good">0.4494</div><div class="metric-sub">lower 80% CI</div></div>
+    <div class="metric-card"><div class="metric-name">uplift@20%</div><div class="metric-value">0.2752</div><div class="metric-sub">lower 80% CI</div></div>
+    <div class="metric-card"><div class="metric-name">AUUC</div><div class="metric-value">4.2836</div><div class="metric-sub">normalized</div></div>
+    <div class="metric-card"><div class="metric-name">Qini</div><div class="metric-value">0.0305</div><div class="metric-sub">coefficient</div></div>
+  </div>
+</section>
+
+<section style="background:var(--bg2)">
+  <div class="section-label">Step 5 — Significance</div>
+  <h2>Permutation <span>test</span></h2>
+  <div class="perm-box">
+    <div class="perm-result"><div class="perm-badge">✓ Significant (p &lt; 0.05)</div></div>
+    <div class="perm-stats">
+      <div><div class="perm-stat-label">Observed uplift@10</div><div class="perm-stat-value" style="color:var(--teal)">0.4599</div></div>
+      <div><div class="perm-stat-label">p-value</div><div class="perm-stat-value" style="color:var(--teal)">0.0000</div></div>
+      <div><div class="perm-stat-label">Null mean ± std</div><div class="perm-stat-value">0.049 ± 0.008</div></div>
+      <div><div class="perm-stat-label">vs random</div><div class="perm-stat-value" style="color:var(--purple)">+839%</div></div>
+    </div>
+  </div>
+</section>
+
 </div>
 
 <div class="page" id="page-lenta">
@@ -635,10 +734,10 @@ pip install -r requirements.txt<br><br>
   <div class="section-label">Step 1 — Data validation</div>
   <h2>Validation <span>results</span></h2>
   <div class="info-grid">
-    <div class="info-card"><div class="info-label">Randomization</div><div class="info-value">145 imbalanced features / 194. Large dataset — even tiny differences are significant. Randomization is acceptable.</div></div>
+    <div class="info-card"><div class="info-label">Randomization</div><div class="info-value">145 imbalanced / 194. Large dataset — even tiny differences are significant. Randomization acceptable.</div></div>
     <div class="info-card"><div class="info-label">Leakage</div><div class="info-value" style="color:var(--teal)">✓ No leakage detected.</div></div>
     <div class="info-card"><div class="info-label">Balance</div><div class="info-value" style="color:var(--amber)">⚠️ 75.1% / 24.9% — significant imbalance. Larger control group affects propensity-based models.</div></div>
-    <div class="info-card"><div class="info-label">Note</div><div class="info-value">Despite imbalance, large dataset size (550K) provides enough data for all models. DR-learner still ranks #1.</div></div>
+    <div class="info-card"><div class="info-label">Note</div><div class="info-value">Despite imbalance, large dataset (550K) provides enough data. DR-learner still ranks #1.</div></div>
   </div>
 </section>
 
@@ -657,7 +756,7 @@ pip install -r requirements.txt<br><br>
       <tr><td>6</td><td class="model-name">X-learner</td><td>0.0125</td><td>-0.0115</td><td>0.024</td></tr>
     </tbody>
   </table>
-  <p style="color:var(--text-dim);font-size:13px;margin-top:16px">Key insight: DR-learner #1 despite 75/25 imbalance — large dataset (550K) compensates. X-learner last by CV but contributes to winning ensemble.</p>
+  <p style="color:var(--text-dim);font-size:13px;margin-top:16px">Key insight: DR-learner #1 despite 75/25 imbalance — large dataset compensates. X-learner last in CV but enters winning ensemble.</p>
 </section>
 
 <section>
@@ -669,9 +768,8 @@ pip install -r requirements.txt<br><br>
 </section>
 
 <section style="background:var(--bg2)">
-  <div class="section-label">Step 3 — Ensemble search</div>
+  <div class="section-label">Step 3 — Ensemble</div>
   <h2>Agent <span>recommendation</span></h2>
-  <p style="color:var(--text-dim);font-size:14px;margin-bottom:24px">108 combinations evaluated. Best single model holdout: 0.0229 (Hurdle). Best pair: 0.0243. Best triple: 0.0253.</p>
   <div class="agent-box">
     <div class="agent-header">
       <div class="agent-icon">🤖</div>
@@ -687,14 +785,13 @@ pip install -r requirements.txt<br><br>
       <div class="weight-chip"><span class="weight-model">t_learner_lgb</span> <span class="weight-val">0.333</span></div>
       <div class="weight-chip"><span class="weight-model">x_learner</span> <span class="weight-val">0.333</span></div>
     </div>
-    <div class="explanation">DR + T-LGB + X-learner with equal weights achieves holdout lower CI = 0.0253 — 38% improvement over best single model. Notably, X-learner ranked last in CV (-0.0115) but contributes to the winning ensemble, demonstrating that holdout search is more reliable than CV ranking alone. Maximum diversity: DR (doubly robust), T-LGB (tree-based), X-learner (propensity-weighted). Low overfitting risk.</div>
+    <div class="explanation">DR + T-LGB + X-learner with equal weights achieves holdout lower CI = 0.0253 — 38% improvement over best single model. X-learner ranked last in CV (-0.0115) but contributes to the winning ensemble, demonstrating that holdout search is more reliable than CV ranking alone.</div>
   </div>
 </section>
 
 <section>
   <div class="section-label">Step 4 — Final metrics</div>
   <h2>Holdout <span>metrics</span></h2>
-  <p style="color:var(--text-dim);font-size:14px;margin-bottom:24px">Ensemble: DR + T-LGB + X (equal). Bootstrap n=200.</p>
   <div class="metrics-grid">
     <div class="metric-card"><div class="metric-name">uplift@5%</div><div class="metric-value good">0.0245</div><div class="metric-sub">lower 80% CI</div></div>
     <div class="metric-card"><div class="metric-name">uplift@10%</div><div class="metric-value good">0.0230</div><div class="metric-sub">lower 80% CI</div></div>
@@ -724,20 +821,183 @@ pip install -r requirements.txt<br><br>
   <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:28px;max-width:700px">
     <p style="font-size:15px;line-height:1.7;color:var(--text-dim)">
       X-learner ranked <span style="color:var(--coral)">last in CV</span> (lower CI = -0.0115) but was selected in the <span style="color:var(--teal)">winning ensemble</span>.<br><br>
-      This demonstrates a key methodological insight: <strong style="color:var(--text)">CV ranking ≠ ensemble contribution</strong>. A model that performs poorly alone may add complementary signal when combined with others. Holdout-based ensemble search is more reliable than greedy top-K selection.
+      This demonstrates: <strong style="color:var(--text)">CV ranking ≠ ensemble contribution</strong>. Holdout-based ensemble search is more reliable than greedy top-K selection.
     </p>
   </div>
 </section>
 
 </div>
 
-<div class="page" id="page-starbucks">
-  <div class="coming-soon">
-    <div class="coming-soon-icon">📊</div>
-    <h3>Starbucks</h3>
-    <p>Results coming soon. 84K rows, high class imbalance, promotional offer A/B test.</p>
-    <a href="https://www.kaggle.com/datasets/ihormuliar/starbucks-customer-data" target="_blank" class="btn btn-ghost" style="margin-top:8px">Download dataset ↗</a>
+<div class="page" id="page-synthetic">
+
+<div class="ds-hero">
+  <div class="ds-badge">🔬 Synthetic RCT</div>
+  <h1>Synthetic <span>Dataset</span></h1>
+  <p class="ds-desc">Synthetically generated A/B test with known ground truth CATE. Used for ablation study: verifies that pipeline finds the effect when it is guaranteed to exist. τ(x) = 0.5 + 0.3·f₀ + 0.2·f₁.</p>
+  <div class="meta-row">
+    <div class="meta-item"><span class="meta-label">Train</span><span class="meta-value">40,000 rows</span></div>
+    <div class="meta-item"><span class="meta-label">Test</span><span class="meta-value">10,000 rows</span></div>
+    <div class="meta-item"><span class="meta-label">Features</span><span class="meta-value">20 (Gaussian)</span></div>
+    <div class="meta-item"><span class="meta-label">Outcome</span><span class="meta-value">continuous, clipped at 0</span></div>
+    <div class="meta-item"><span class="meta-label">Zero rate</span><span class="meta-value">35.1%</span></div>
+    <div class="meta-item"><span class="meta-label">ATE</span><span class="meta-value">0.3671</span></div>
+    <div class="meta-item"><span class="meta-label">Balance</span><span class="meta-value">50.2% / 49.8%</span></div>
+    <div class="meta-item"><span class="meta-label">Generator</span><span class="meta-value">numpy (no external deps)</span></div>
   </div>
+</div>
+
+<section>
+  <div class="section-label">Step 1 — Data validation</div>
+  <h2>Validation <span>results</span></h2>
+  <div class="info-grid">
+    <div class="info-card"><div class="info-label">Randomization</div><div class="info-value">3 imbalanced features / 20. Expected from random generation.</div></div>
+    <div class="info-card"><div class="info-label">Leakage</div><div class="info-value" style="color:var(--teal)">✓ No leakage by construction.</div></div>
+    <div class="info-card"><div class="info-label">Balance</div><div class="info-value" style="color:var(--teal)">✓ 50.2% / 49.8% — perfect randomization.</div></div>
+    <div class="info-card"><div class="info-label">Purpose</div><div class="info-value">Sanity check: all models should perform well. If a model fails here, it has a bug — not a data issue.</div></div>
+  </div>
+</section>
+
+<section style="background:var(--bg2)">
+  <div class="section-label">Step 2 — Cross-validation</div>
+  <h2>CV results <span>all 6 models</span></h2>
+  <p style="color:var(--text-dim);font-size:14px;margin-bottom:24px">All models perform well — confirms pipeline correctness. Metric: uplift@10 lower 80% CI.</p>
+  <table class="cv-table">
+    <thead><tr><th>#</th><th>Model</th><th>CV point</th><th>CV lower CI</th><th>Gap</th></tr></thead>
+    <tbody>
+      <tr class="best"><td class="rank-1">1</td><td class="model-name">R-learner</td><td>0.9274</td><td class="rank-1">0.9041</td><td>0.023</td></tr>
+      <tr><td class="rank-2">2</td><td class="model-name">T-learner Ridge</td><td>0.9304</td><td class="rank-2">0.9015</td><td>0.029</td></tr>
+      <tr><td class="rank-3">3</td><td class="model-name">Hurdle</td><td>0.9286</td><td class="rank-3">0.9002</td><td>0.028</td></tr>
+      <tr><td>4</td><td class="model-name">DR-learner</td><td>0.9241</td><td>0.8984</td><td>0.026</td></tr>
+      <tr><td>5</td><td class="model-name">T-learner LGB</td><td>0.9154</td><td>0.8856</td><td>0.030</td></tr>
+      <tr><td>6</td><td class="model-name">X-learner</td><td>0.9137</td><td>0.8837</td><td>0.030</td></tr>
+    </tbody>
+  </table>
+  <p style="color:var(--text-dim);font-size:13px;margin-top:16px">✓ All models achieve lower CI &gt; 0.88 — pipeline correctly detects the known treatment effect.</p>
+</section>
+
+<section>
+  <div class="section-label">Step 2 — Visualization</div>
+  <h2>Model <span>comparison</span></h2>
+  <div class="figures-grid">
+    <div class="figure-wrap"><div class="figure-label">CV point vs lower CI</div><img src="assets/synthetic/model_comparison.png" alt="Model comparison"></div>
+  </div>
+</section>
+
+<section style="background:var(--bg2)">
+  <div class="section-label">Step 3 — Ensemble</div>
+  <h2>Agent <span>recommendation</span></h2>
+  <div class="agent-box">
+    <div class="agent-header">
+      <div class="agent-icon">🤖</div>
+      <div><div class="agent-title">Ensemble Agent</div><div class="agent-subtitle">claude-sonnet-4-5 · 108 combinations evaluated</div></div>
+    </div>
+    <div class="decision-row">
+      <div><div class="decision-label">Selected</div><div class="decision-value">T-Ridge + X-learner + R-learner</div></div>
+      <div><div class="decision-label">Strategy</div><div class="decision-value">ci_weights</div></div>
+      <div><div class="decision-label">Holdout lower CI</div><div class="decision-value">0.8949</div></div>
+    </div>
+    <div class="weights-row">
+      <div class="weight-chip"><span class="weight-model">t_learner_ridge</span> <span class="weight-val">0.335</span></div>
+      <div class="weight-chip"><span class="weight-model">x_learner</span> <span class="weight-val">0.329</span></div>
+      <div class="weight-chip"><span class="weight-model">r_learner</span> <span class="weight-val">0.336</span></div>
+    </div>
+    <div class="explanation">T-Ridge + X-learner + R-learner with CI weights achieves holdout lower CI = 0.8949. All three models have quasi-equal weights (~33%), confirming genuine diversity. R-learner (theoretically optimal), X-learner (imputation-based), T-Ridge (linear) represent fundamentally different CATE estimation approaches.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Step 4 — Final metrics</div>
+  <h2>Holdout <span>metrics</span></h2>
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="metric-name">uplift@5%</div><div class="metric-value good">0.9367</div><div class="metric-sub">lower 80% CI</div></div>
+    <div class="metric-card"><div class="metric-name">uplift@10%</div><div class="metric-value good">0.8918</div><div class="metric-sub">lower 80% CI</div></div>
+    <div class="metric-card"><div class="metric-name">uplift@20%</div><div class="metric-value">0.7844</div><div class="metric-sub">lower 80% CI</div></div>
+    <div class="metric-card"><div class="metric-name">AUUC</div><div class="metric-value">1.7445</div><div class="metric-sub">normalized</div></div>
+    <div class="metric-card"><div class="metric-name">Qini</div><div class="metric-value">0.1012</div><div class="metric-sub">coefficient</div></div>
+  </div>
+</section>
+
+<section style="background:var(--bg2)">
+  <div class="section-label">Step 5 — Significance</div>
+  <h2>Permutation <span>test</span></h2>
+  <div class="perm-box">
+    <div class="perm-result"><div class="perm-badge">✓ Significant (p &lt; 0.05)</div></div>
+    <div class="perm-stats">
+      <div><div class="perm-stat-label">Observed uplift@10</div><div class="perm-stat-value" style="color:var(--teal)">0.9242</div></div>
+      <div><div class="perm-stat-label">p-value</div><div class="perm-stat-value" style="color:var(--teal)">0.0000</div></div>
+      <div><div class="perm-stat-label">Null mean ± std</div><div class="perm-stat-value">0.360 ± 0.028</div></div>
+      <div><div class="perm-stat-label">vs random</div><div class="perm-stat-value" style="color:var(--purple)">+157%</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Key finding</div>
+  <h2>Ablation <span>study</span></h2>
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:28px;max-width:700px">
+    <p style="font-size:15px;line-height:1.7;color:var(--text-dim)">
+      All 6 models achieve lower CI &gt; 0.88 on synthetic data with <span style="color:var(--teal)">known CATE</span>.<br><br>
+      This confirms: <strong style="color:var(--text)">the pipeline correctly identifies treatment effects when they exist</strong>. Differences between real datasets reflect genuine data characteristics — not pipeline bugs.<br><br>
+      R-learner ranks #1 here (quasi-oracle property) but not on real datasets — confirming that theoretical optimality does not always translate to empirical superiority.
+    </p>
+  </div>
+</section>
+
+</div>
+
+<div class="page" id="page-company">
+
+<div class="ds-hero">
+  <div class="ds-badge">🏢 Your Company</div>
+  <h1>Run on your <span>data</span></h1>
+  <p class="ds-desc">AutoPrep-Uplift works on any marketing A/B test dataset. Bring your own data — the LLM agent handles preprocessing automatically, benchmarks all 6 models, and finds the optimal ensemble.</p>
+  <div class="meta-row">
+    <div class="meta-item"><span class="meta-label">Required</span><span class="meta-value">treatment_col, outcome_col</span></div>
+    <div class="meta-item"><span class="meta-label">Outcome type</span><span class="meta-value">binary or continuous</span></div>
+    <div class="meta-item"><span class="meta-label">Min size</span><span class="meta-value">~10K rows recommended</span></div>
+    <div class="meta-item"><span class="meta-label">Balance</span><span class="meta-value">any ratio supported</span></div>
+  </div>
+</div>
+
+<section>
+  <div class="section-label">How to run</div>
+  <h2>Quick <span>start</span></h2>
+  <div class="code-block" style="max-width:600px">
+    <div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div></div>
+    <div class="code-body">
+<span class="c-dim"># add your dataset loader to run_pipeline.py</span><br>
+<span class="c-purple">if</span> name == <span class="c-teal">'your_company'</span>:<br>
+&nbsp;&nbsp;df = pd.read_csv(<span class="c-teal">'data/your_data.csv'</span>)<br>
+&nbsp;&nbsp;df[<span class="c-teal">'user_id'</span>] = np.arange(len(df))<br>
+&nbsp;&nbsp;<span class="c-dim">... split train/test ...</span><br>
+&nbsp;&nbsp;<span class="c-purple">return</span> train, test<br><br>
+<span class="c-dim"># run</span><br>
+py run_pipeline.py --dataset your_company
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--bg2)">
+  <div class="section-label">Results across datasets</div>
+  <h2>What to <span>expect</span></h2>
+  <div class="info-grid">
+    <div class="info-card"><div class="info-label">50/50 balance</div><div class="info-value">DR-learner typically wins. Conditions similar to Magnit or Megafon.</div></div>
+    <div class="info-card"><div class="info-label">Imbalanced groups</div><div class="info-value">T-learner Ridge often beats DR. X-learner designed for this case.</div></div>
+    <div class="info-card"><div class="info-label">~90% zeros</div><div class="info-value">Hurdle model specialised for zero-inflated outcomes. Consider it first.</div></div>
+    <div class="info-card"><div class="info-label">Ensemble</div><div class="info-value">AI agent evaluates 108 combinations. Often better than best single model by 10–38%.</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Contact</div>
+  <h2>Get in <span>touch</span></h2>
+  <p style="color:var(--text-dim);font-size:16px;margin-bottom:32px">Interested in running AutoPrep-Uplift on your marketing data or collaborating on the research?</p>
+  <div style="display:flex;gap:16px;flex-wrap:wrap">
+    <a href="https://t.me/alli1ice" target="_blank" class="btn btn-primary">Contact on Telegram ↗</a>
+    <a href="https://github.com/allisksks/autoprep-uplift" target="_blank" class="btn btn-ghost">View on GitHub ↗</a>
+  </div>
+</section>
+
 </div>
 
 <footer>
