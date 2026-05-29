@@ -293,6 +293,6 @@ def generate_preprocess(
 
     if verbose:
         print(f'EDA Agent: готово. Признаков после препроцессинга: '
-              f'{len([k for k in preproc_stats.get("num_cols", [])])} числовых.')
+              f'{len(preproc_stats.get("numeric_cols", preproc_stats.get("num_cols", [])))} числовых.')
 
     return code, preproc_stats
