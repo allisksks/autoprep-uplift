@@ -163,7 +163,7 @@ def auuc(
             u = 0.0
         cumulative.append(u)
 
-    area = float(np.trapz(cumulative)) / n
+    area = float(np.trapezoid(cumulative)) / n
 
     if normalize:
         return round(area / (abs(ate) + 1e-8), 4)
@@ -206,7 +206,7 @@ def qini_coefficient(
         gains_model.append(gain)
         gains_random.append((i + 1) / n * gain)
 
-    qini = float(np.trapz(gains_model) - np.trapz(gains_random)) / n
+    qini = float(np.trapezoid(gains_model) - np.trapezoid(gains_random)) / n
     return round(qini, 6)
 
 
