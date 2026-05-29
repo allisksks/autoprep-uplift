@@ -25,7 +25,7 @@ load_dotenv()
 try:
     import anthropic
     _CLIENT = anthropic.Anthropic(api_key=os.getenv('ANTHROPIC_API_KEY'))
-    _MODEL  = 'claude-sonnet-4-20250514'
+    _MODEL  = 'claude-sonnet-4-5'
 except Exception:
     _CLIENT = None
     _MODEL  = None
@@ -293,6 +293,6 @@ def generate_preprocess(
 
     if verbose:
         print(f'EDA Agent: готово. Признаков после препроцессинга: '
-              f'{len([k for k in preproc_stats.get("num_cols", [])])} числовых.')
+              f'{len(preproc_stats.get("numeric_cols", preproc_stats.get("num_cols", [])))} числовых.')
 
     return code, preproc_stats
