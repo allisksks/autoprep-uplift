@@ -29,7 +29,7 @@ from sklearn.model_selection import train_test_split
 # ── Парсинг аргументов ────────────────────────────────────────
 parser = argparse.ArgumentParser(description='AutoPrep-Uplift Pipeline')
 parser.add_argument('--dataset',  type=str, required=True,
-                    choices=['magnit','hillstrom','lenta','criteo','starbucks','synthetic'],
+                    choices=['magnit','hillstrom','lenta','criteo','starbucks','synthetic','megafon'],
                     help='Датасет для запуска')
 parser.add_argument('--metric',   type=str, default='uplift@10',
                     help='Метрика: uplift@10, uplift@5, uplift@20, auuc, qini')
@@ -99,6 +99,12 @@ DATASET_CONFIGS = {
         'outcome_col':   'outcome',
         'cat_cols':      [],
         'out_dir':       'experiments/results/synthetic',
+    },
+    'megafon': {
+        'treatment_col': 'treatment_flg',
+        'outcome_col':   'target',
+        'cat_cols':      [],
+        'out_dir':       'experiments/results/megafon',
     },
 }
 
@@ -188,6 +194,19 @@ def load_dataset(name):
         train, test = df.iloc[:n].copy(), df.iloc[n:].copy()
         test_out = test.copy()
         test_out['outcome'] = np.nan
+        return train, test_out
+    
+    if name == 'megafon':
+        from sklift.datasets import fetch_megafon
+        data = fetch_megafon()
+        df   = data.data.copy()
+        df['target']       = data.target
+        df['treatment_flg'] = (data.treatment == 'treatment').astype(int)
+        df['user_id']      = np.arange(len(df))
+        n = int(len(df) * 0.8)
+        train, test = df.iloc[:n].copy(), df.iloc[n:].copy()
+        test_out = test.copy()
+        test_out['target'] = np.nan
         return train, test_out
 
     raise ValueError(f'Неизвестный датасет: {name}')
