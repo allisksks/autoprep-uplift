@@ -375,43 +375,6 @@ evaluate_all(y, w, scores)<br>
   </div>
 </section>
 
-<section style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
-  <div class="section-label">Results</div>
-  <h2>Benchmark <span>results</span></h2>
-  <p class="section-sub">CV results on proprietary retail dataset (355K rows, 90% zero-inflated outcome). Fast mode: 100K sample, 3-fold CV, bootstrap n=100.</p>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:1000px">
-    <div>
-      <p style="font-family:var(--mono);font-size:11px;color:var(--text-dim);margin-bottom:12px;letter-spacing:0.05em">MODEL COMPARISON — uplift@10</p>
-      <img src="assets/model_comparison.png" style="width:100%;border-radius:8px;border:1px solid var(--border)" alt="Model comparison">
-    </div>
-    <div>
-      <p style="font-family:var(--mono);font-size:11px;color:var(--text-dim);margin-bottom:12px;letter-spacing:0.05em">STABILITY CHECK — point vs lower CI gap</p>
-      <img src="assets/stability_check.png" style="width:100%;border-radius:8px;border:1px solid var(--border)" alt="Stability check">
-    </div>
-  </div>
-  <div style="margin-top:32px;padding:20px 24px;background:var(--bg3);border-radius:8px;border:1px solid var(--border);max-width:600px">
-    <p style="font-family:var(--mono);font-size:11px;color:var(--text-dim);margin-bottom:12px;letter-spacing:0.05em">KEY FINDINGS</p>
-    <div style="display:flex;flex-direction:column;gap:8px">
-      <div style="display:flex;gap:12px;align-items:baseline">
-        <span style="font-family:var(--mono);font-size:13px;color:var(--purple);min-width:140px">DR-learner</span>
-        <span style="font-size:13px;color:var(--text-dim)">lower CI = 16.37 — best by large margin, doubly robust</span>
-      </div>
-      <div style="display:flex;gap:12px;align-items:baseline">
-        <span style="font-family:var(--mono);font-size:13px;color:var(--teal);min-width:140px">R-learner</span>
-        <span style="font-size:13px;color:var(--text-dim)">lower CI = 13.15 — quasi-oracle, stable gap</span>
-      </div>
-      <div style="display:flex;gap:12px;align-items:baseline">
-        <span style="font-family:var(--mono);font-size:13px;color:var(--teal);min-width:140px">T-Ridge</span>
-        <span style="font-size:13px;color:var(--text-dim)">lower CI = 12.98 — linear baseline, surprisingly competitive</span>
-      </div>
-      <div style="display:flex;gap:12px;align-items:baseline">
-        <span style="font-family:var(--mono);font-size:13px;color:var(--amber);min-width:140px">X-learner</span>
-        <span style="font-size:13px;color:var(--text-dim)">lower CI = 12.64 — no gain on balanced 50/50 data (expected)</span>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section id="datasets">
   <div class="section-label">Benchmarks</div>
   <h2>Validated on <span>5 datasets</span></h2>
