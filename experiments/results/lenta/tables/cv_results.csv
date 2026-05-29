@@ -1,0 +1,7 @@
+model,cv_point,cv_lower_ci
+dr_learner,0.0351,0.0118
+r_learner,0.0231,0.0001
+hurdle,0.0234,-0.0008
+t_learner_ridge,0.0179,-0.0044
+t_learner_lgb,0.0161,-0.0077
+x_learner,0.0125,-0.0115
