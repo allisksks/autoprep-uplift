@@ -84,7 +84,7 @@ DATASET_CONFIGS = {
     },
     'criteo': {
         'treatment_col': 'treatment',
-        'outcome_col':   'conversion',
+        'outcome_col':   'visit',
         'cat_cols':      [],
         'out_dir':       'experiments/results/criteo',
     },
@@ -166,32 +166,33 @@ def load_dataset(name):
         return train, test_out
 
     if name == 'criteo':
-        path = 'data/criteo-uplift-v2.1.csv'
-        if not os.path.exists(path):
-            raise FileNotFoundError(
-                'Скачай датасет и положи в data/criteo-uplift-v2.1.csv\n'
-                'https://ailab.criteo.com/criteo-uplift-prediction-dataset/'
-            )
-        df = pd.read_csv(path, nrows=500_000)  # берём 500K для скорости
-        df['user_id'] = np.arange(len(df))
-        n = int(len(df) * 0.8)
-        train, test = df.iloc[:n].copy(), df.iloc[n:].copy()
-        test_out = test.copy()
-        test_out['conversion'] = np.nan
-        return train, test_out
-
-    if name == 'synthetic':
-        from causalml.dataset import make_uplift_classification
-        df, _ = make_uplift_classification(
-            n_samples=50_000, treatment_name=['treatment'],
-            n_classification_features=20, random_seed=SEED
-        )
-        df = df.rename(columns={'treatment_group_key': 'treatment'})
-        df['treatment'] = (df['treatment'] == 'treatment').astype(int)
-        df['outcome']   = df['conversion']
+        from sklift.datasets import fetch_criteo
+        data = fetch_criteo(target_col='visit', percent10=True)
+        df   = data.data.copy()
+        df['visit']     = data.target
+        df['treatment'] = data.treatment
         df['user_id']   = np.arange(len(df))
         n = int(len(df) * 0.8)
         train, test = df.iloc[:n].copy(), df.iloc[n:].copy()
+        test_out = test.copy()
+        test_out['visit'] = np.nan
+        return train, test_out
+
+    if name == 'synthetic':
+        # Генерируем синтетический A/B тест без causalml
+        rng = np.random.RandomState(SEED)
+        n   = 50_000
+        X   = pd.DataFrame(rng.randn(n, 20), columns=[f'f{i}' for i in range(20)])
+        w   = rng.binomial(1, 0.5, n)
+        # Истинный CATE зависит от f0 и f1
+        tau = 0.5 + 0.3 * X['f0'] + 0.2 * X['f1']
+        y   = (tau * w + rng.randn(n) * 0.5).clip(0)
+        df  = X.copy()
+        df['treatment'] = w
+        df['outcome']   = y
+        df['user_id']   = np.arange(n)
+        n_train = int(n * 0.8)
+        train, test = df.iloc[:n_train].copy(), df.iloc[n_train:].copy()
         test_out = test.copy()
         test_out['outcome'] = np.nan
         return train, test_out
