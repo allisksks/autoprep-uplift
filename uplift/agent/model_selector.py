@@ -20,7 +20,7 @@ load_dotenv()
 try:
     import anthropic
     _CLIENT = anthropic.Anthropic(api_key=os.getenv('ANTHROPIC_API_KEY'))
-    _MODEL  = 'claude-sonnet-4-20250514'
+    _MODEL  = 'claude-sonnet-4-5'
 except Exception:
     _CLIENT = None
     _MODEL  = None
