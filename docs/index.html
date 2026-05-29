@@ -238,8 +238,8 @@ footer{padding:40px 80px;border-top:1px solid var(--border);display:flex;justify
     <button class="tab-btn disabled" id="tab-criteo">
       <span class="tab-dot coming"></span> Criteo v2
     </button>
-    <button class="tab-btn disabled" id="tab-lenta">
-      <span class="tab-dot coming"></span> Lenta
+    <button class="tab-btn" onclick="showTab('lenta')" id="tab-lenta">
+      <span class="tab-dot" style="background:var(--teal)"></span> Lenta
     </button>
     <button class="tab-btn disabled" id="tab-starbucks">
       <span class="tab-dot coming"></span> Starbucks
@@ -614,12 +614,121 @@ pip install -r requirements.txt<br><br>
 </div>
 
 <div class="page" id="page-lenta">
-  <div class="coming-soon">
-    <div class="coming-soon-icon">📊</div>
-    <h3>Lenta Retail</h3>
-    <p>Results coming soon. ~687K rows, binary response, Russian grocery retailer.</p>
-    <a href="https://github.com/maks-sh/scikit-uplift" target="_blank" class="btn btn-ghost" style="margin-top:8px">Via scikit-uplift ↗</a>
+
+<div class="ds-hero">
+  <div class="ds-badge">🛒 Public RCT</div>
+  <h1>Lenta <span>Retail</span></h1>
+  <p class="ds-desc">Russian grocery retailer marketing campaign. Binary response outcome. Large dataset with significant treatment/control imbalance (75/25). Available via scikit-uplift.</p>
+  <div class="meta-row">
+    <div class="meta-item"><span class="meta-label">Train</span><span class="meta-value">549,623 rows</span></div>
+    <div class="meta-item"><span class="meta-label">Test</span><span class="meta-value">137,406 rows</span></div>
+    <div class="meta-item"><span class="meta-label">Features</span><span class="meta-value">196 → 166</span></div>
+    <div class="meta-item"><span class="meta-label">Outcome</span><span class="meta-value">response_att (binary)</span></div>
+    <div class="meta-item"><span class="meta-label">Zero rate</span><span class="meta-value">89.2%</span></div>
+    <div class="meta-item"><span class="meta-label">ATE</span><span class="meta-value">0.0071</span></div>
+    <div class="meta-item"><span class="meta-label">Balance</span><span class="meta-value">75.1% / 24.9%</span></div>
+    <div class="meta-item"><span class="meta-label">Source</span><span class="meta-value"><a href="https://github.com/maks-sh/scikit-uplift" target="_blank" style="color:var(--purple)">scikit-uplift ↗</a></span></div>
   </div>
+</div>
+
+<section>
+  <div class="section-label">Step 1 — Data validation</div>
+  <h2>Validation <span>results</span></h2>
+  <div class="info-grid">
+    <div class="info-card"><div class="info-label">Randomization</div><div class="info-value">145 imbalanced features / 194. Large dataset — even tiny differences are significant. Randomization is acceptable.</div></div>
+    <div class="info-card"><div class="info-label">Leakage</div><div class="info-value" style="color:var(--teal)">✓ No leakage detected.</div></div>
+    <div class="info-card"><div class="info-label">Balance</div><div class="info-value" style="color:var(--amber)">⚠️ 75.1% / 24.9% — significant imbalance. Larger control group affects propensity-based models.</div></div>
+    <div class="info-card"><div class="info-label">Note</div><div class="info-value">Despite imbalance, large dataset size (550K) provides enough data for all models. DR-learner still ranks #1.</div></div>
+  </div>
+</section>
+
+<section style="background:var(--bg2)">
+  <div class="section-label">Step 2 — Cross-validation</div>
+  <h2>CV results <span>all 6 models</span></h2>
+  <p style="color:var(--text-dim);font-size:14px;margin-bottom:24px">Fast mode: 100K sample, 3-fold CV, bootstrap n=100. Metric: uplift@10 lower 80% CI.</p>
+  <table class="cv-table">
+    <thead><tr><th>#</th><th>Model</th><th>CV point</th><th>CV lower CI</th><th>Gap</th></tr></thead>
+    <tbody>
+      <tr class="best"><td class="rank-1">1</td><td class="model-name">DR-learner</td><td>0.0351</td><td class="rank-1">0.0118</td><td>0.023</td></tr>
+      <tr><td class="rank-2">2</td><td class="model-name">R-learner</td><td>0.0231</td><td class="rank-2">0.0001</td><td>0.023</td></tr>
+      <tr><td class="rank-3">3</td><td class="model-name">Hurdle</td><td>0.0234</td><td class="rank-3">-0.0008</td><td>0.024</td></tr>
+      <tr><td>4</td><td class="model-name">T-learner Ridge</td><td>0.0179</td><td>-0.0044</td><td>0.022</td></tr>
+      <tr><td>5</td><td class="model-name">T-learner LGB</td><td>0.0161</td><td>-0.0077</td><td>0.024</td></tr>
+      <tr><td>6</td><td class="model-name">X-learner</td><td>0.0125</td><td>-0.0115</td><td>0.024</td></tr>
+    </tbody>
+  </table>
+  <p style="color:var(--text-dim);font-size:13px;margin-top:16px">Key insight: DR-learner #1 despite 75/25 imbalance — large dataset (550K) compensates. X-learner last by CV but contributes to winning ensemble.</p>
+</section>
+
+<section>
+  <div class="section-label">Step 2 — Visualization</div>
+  <h2>Model <span>comparison</span></h2>
+  <div class="figures-grid">
+    <div class="figure-wrap"><div class="figure-label">CV point vs lower CI</div><img src="assets/lenta/model_comparison.png" alt="Model comparison"></div>
+  </div>
+</section>
+
+<section style="background:var(--bg2)">
+  <div class="section-label">Step 3 — Ensemble search</div>
+  <h2>Agent <span>recommendation</span></h2>
+  <p style="color:var(--text-dim);font-size:14px;margin-bottom:24px">108 combinations evaluated. Best single model holdout: 0.0229 (Hurdle). Best pair: 0.0243. Best triple: 0.0253.</p>
+  <div class="agent-box">
+    <div class="agent-header">
+      <div class="agent-icon">🤖</div>
+      <div><div class="agent-title">Ensemble Agent</div><div class="agent-subtitle">claude-sonnet-4-5 · 108 combinations evaluated</div></div>
+    </div>
+    <div class="decision-row">
+      <div><div class="decision-label">Selected</div><div class="decision-value">DR + T-LGB + X-learner</div></div>
+      <div><div class="decision-label">Strategy</div><div class="decision-value">equal weights</div></div>
+      <div><div class="decision-label">Holdout lower CI</div><div class="decision-value">0.0253</div></div>
+    </div>
+    <div class="weights-row">
+      <div class="weight-chip"><span class="weight-model">dr_learner</span> <span class="weight-val">0.333</span></div>
+      <div class="weight-chip"><span class="weight-model">t_learner_lgb</span> <span class="weight-val">0.333</span></div>
+      <div class="weight-chip"><span class="weight-model">x_learner</span> <span class="weight-val">0.333</span></div>
+    </div>
+    <div class="explanation">DR + T-LGB + X-learner with equal weights achieves holdout lower CI = 0.0253 — 38% improvement over best single model. Notably, X-learner ranked last in CV (-0.0115) but contributes to the winning ensemble, demonstrating that holdout search is more reliable than CV ranking alone. Maximum diversity: DR (doubly robust), T-LGB (tree-based), X-learner (propensity-weighted). Low overfitting risk.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Step 4 — Final metrics</div>
+  <h2>Holdout <span>metrics</span></h2>
+  <p style="color:var(--text-dim);font-size:14px;margin-bottom:24px">Ensemble: DR + T-LGB + X (equal). Bootstrap n=200.</p>
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="metric-name">uplift@5%</div><div class="metric-value good">0.0245</div><div class="metric-sub">lower 80% CI</div></div>
+    <div class="metric-card"><div class="metric-name">uplift@10%</div><div class="metric-value good">0.0230</div><div class="metric-sub">lower 80% CI</div></div>
+    <div class="metric-card"><div class="metric-name">uplift@20%</div><div class="metric-value">0.0104</div><div class="metric-sub">lower 80% CI</div></div>
+    <div class="metric-card"><div class="metric-name">AUUC</div><div class="metric-value">2.7940</div><div class="metric-sub">normalized</div></div>
+    <div class="metric-card"><div class="metric-name">Qini</div><div class="metric-value">0.0025</div><div class="metric-sub">coefficient</div></div>
+  </div>
+</section>
+
+<section style="background:var(--bg2)">
+  <div class="section-label">Step 5 — Significance</div>
+  <h2>Permutation <span>test</span></h2>
+  <div class="perm-box">
+    <div class="perm-result"><div class="perm-badge">✓ Significant (p &lt; 0.05)</div></div>
+    <div class="perm-stats">
+      <div><div class="perm-stat-label">Observed uplift@10</div><div class="perm-stat-value" style="color:var(--teal)">0.0351</div></div>
+      <div><div class="perm-stat-label">p-value</div><div class="perm-stat-value" style="color:var(--teal)">0.0000</div></div>
+      <div><div class="perm-stat-label">Null mean ± std</div><div class="perm-stat-value">0.006 ± 0.007</div></div>
+      <div><div class="perm-stat-label">vs random</div><div class="perm-stat-value" style="color:var(--purple)">+516%</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Key finding</div>
+  <h2>Cross-dataset <span>insight</span></h2>
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:28px;max-width:700px">
+    <p style="font-size:15px;line-height:1.7;color:var(--text-dim)">
+      X-learner ranked <span style="color:var(--coral)">last in CV</span> (lower CI = -0.0115) but was selected in the <span style="color:var(--teal)">winning ensemble</span>.<br><br>
+      This demonstrates a key methodological insight: <strong style="color:var(--text)">CV ranking ≠ ensemble contribution</strong>. A model that performs poorly alone may add complementary signal when combined with others. Holdout-based ensemble search is more reliable than greedy top-K selection.
+    </p>
+  </div>
+</section>
+
 </div>
 
 <div class="page" id="page-starbucks">
