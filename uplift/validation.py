@@ -142,10 +142,14 @@ def check_leakage(
         except Exception:
             continue
 
-    result_df = pd.DataFrame(results).sort_values(
-        'corr_treatment', ascending=False
-    )
-
+    if not results:
+        result_df = pd.DataFrame(columns=[
+            'feature', 'corr_treatment', 'corr_outcome', 'leakage_risk'
+        ])
+    else:
+        result_df = pd.DataFrame(results).sort_values(
+            'corr_treatment', ascending=False
+        )
     if verbose:
         n_risk = result_df['leakage_risk'].sum()
         print(f'Детекция leakage: {len(result_df)} признаков')

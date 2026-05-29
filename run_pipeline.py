@@ -135,6 +135,9 @@ def load_dataset(name):
         df['response_att']  = data.target
         df['treatment_flg'] = data.treatment
         df['user_id']       = np.arange(len(df))
+        # Энкодим строковые колонки
+        for col in df.select_dtypes(include=['object', 'string']).columns:
+            df[col] = df[col].astype('category').cat.codes
         n = int(len(df) * 0.8)
         train, test = df.iloc[:n].copy(), df.iloc[n:].copy()
         test_out = test.copy()
