@@ -20,7 +20,7 @@ import pandas as pd
 from typing import Optional, Dict, Tuple, List
 
 from .metrics import uplift_at_k, auuc, qini_coefficient, train_val_gap, summary_table
-from .models import DRLearner, TLearnerLGB, TLearnerRidge, HurdleLearner
+from .models import DRLearner, TLearnerLGB, TLearnerRidge, XLearner, RLearner, HurdleLearner
 from sklearn.model_selection import KFold, train_test_split
 
 SEED = 42
@@ -134,10 +134,12 @@ class UpliftPipeline:
 
     # Все доступные модели
     MODELS = {
-        'dr_learner':    DRLearner,
-        't_learner_lgb': TLearnerLGB,
+        'dr_learner':      DRLearner,
+        't_learner_lgb':   TLearnerLGB,
         't_learner_ridge': TLearnerRidge,
-        'hurdle':        HurdleLearner,
+        'x_learner':       XLearner,
+        'r_learner':       RLearner,
+        'hurdle':          HurdleLearner,
     }
 
     def __init__(self, random_state: int = SEED):
