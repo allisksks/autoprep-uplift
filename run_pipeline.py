@@ -242,7 +242,7 @@ print(f'  ATE: {report["ate"]:.4f}')
 # ── Препроцессинг ─────────────────────────────────────────────
 if USE_AGENT:
     print(f'\n[3] LLM агент — EDA и препроцессинг...')
-    from uplift import generate_preprocess
+    from uplift.agent import generate_preprocess, generate_features
     code, preproc_stats = generate_preprocess(
         train_df=train,
         treatment_col=TREATMENT_COL,
@@ -253,6 +253,20 @@ if USE_AGENT:
     exec(code, namespace)
     train_proc = namespace['apply_preprocess'](train.copy(), preproc_stats)
     test_proc  = namespace['apply_preprocess'](test.copy(),  preproc_stats)
+
+    print(f'\n[3b] LLM агент — Feature Engineering...')
+    fe_code, fe_stats = generate_features(
+        train_proc    = train_proc,
+        treatment_col = TREATMENT_COL,
+        outcome_col   = OUTCOME_COL,
+        preproc_stats = preproc_stats,
+        verbose       = True,
+    )
+    fe_namespace = {'pd': pd, 'np': np}
+    exec(fe_code, fe_namespace)
+    train_proc = fe_namespace['apply_features'](train_proc.copy(), fe_stats)
+    test_proc  = fe_namespace['apply_features'](test_proc.copy(),  fe_stats)
+
 else:
     print(f'\n[3] Стандартный препроцессинг (без агента)...')
     from uplift.pipeline import fit_preprocess, apply_preprocess
@@ -261,6 +275,7 @@ else:
     )
     train_proc = apply_preprocess(train.copy(), preproc_stats)
     test_proc  = apply_preprocess(test.copy(),  preproc_stats)
+    fe_stats = None
 
 # Feature cols
 service_cols = ['user_id', TREATMENT_COL, OUTCOME_COL]
@@ -274,6 +289,7 @@ y_full = train[OUTCOME_COL].values
 w_full = train[TREATMENT_COL].values
 X_test = test_proc[[c for c in feature_cols if c in test_proc.columns]].astype(float)
 print(f'  X_full: {X_full.shape}  NaN: {X_full.isnull().sum().sum()}')
+print(f'  X_test: {X_test.shape}')
 
 # ── CV ────────────────────────────────────────────────────────
 print(f'\n[4] CV по всем 6 моделям...')
