@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AutoPrep-Uplift</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&subset=latin,cyrillic&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #0a0a0f;
@@ -17,12 +17,12 @@
   --amber: #ffd93d;
   --text: #e8e6f0;
   --text-dim: #7a7890;
-  --mono: 'DM Mono', monospace;
-  --sans: 'DM Sans', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Inter', sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.7;overflow-x:hidden}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4}
 
 /* NAV */
@@ -224,11 +224,11 @@ footer{padding:40px 80px;border-top:1px solid var(--border);display:flex;justify
     <span class="nav-logo" onclick="showTab('overview')">autoprep-uplift</span>
     <div class="nav-ext">
       <a href="https://github.com/allisksks/autoprep-uplift" target="_blank">GitHub ↗</a>
-      <a href="https://github.com/allisksks/autoprep-uplift#citation" target="_blank">Cite</a>
+      <a href="https://github.com/allisksks/autoprep-uplift#citation" target="_blank">Цитировать</a>
     </div>
   </div>
   <div class="tab-bar">
-    <button class="tab-btn active" onclick="showTab('overview')" id="tab-overview">Overview</button>
+    <button class="tab-btn active" onclick="showTab('overview')" id="tab-overview">Обзор</button>
     <button class="tab-btn" onclick="showTab('magnit')" id="tab-magnit">
       <span class="tab-dot private"></span> Magnit Retail
     </button>
@@ -255,114 +255,95 @@ footer{padding:40px 80px;border-top:1px solid var(--border);display:flex;justify
 
 <div class="hero">
   <div class="blob"></div>
-  <div class="hero-eyebrow fade-up">Research · Causal Inference · LLM-augmented</div>
-  <h1 class="fade-up">Causal uplift<br>for <span>any</span> A/B test.</h1>
-  <p class="hero-sub fade-up">An LLM-augmented pipeline that automates preprocessing, benchmarks 6 meta-learners with rigorous anti-overfitting checks, and uses an AI agent to select the optimal ensemble from 100+ combinations.</p>
+  <div class="hero-eyebrow fade-up">Исследование · Каузальный вывод · LLM-агенты</div>
+  <h1 class="fade-up">Uplift-моделирование<br>для <span>любого</span> A/B теста.</h1>
+  <p class="hero-sub fade-up">Пайплайн с LLM-агентами: автоматизирует препроцессинг и feature engineering, бенчмаркирует 6 мета-лёрнеров с проверками на переобучение, и выбирает оптимальный ансамбль из 100+ комбинаций.</p>
   <div class="hero-ctas fade-up">
-    <a href="https://github.com/allisksks/autoprep-uplift" class="btn btn-primary" target="_blank">View on GitHub</a>
-    <button onclick="showTab('magnit')" class="btn btn-ghost">See results →</button>
+    <a href="https://github.com/allisksks/autoprep-uplift" class="btn btn-primary" target="_blank">Смотреть на GitHub</a>
+    <button onclick="showTab('magnit')" class="btn btn-ghost">Посмотреть результаты →</button>
   </div>
   <div class="hero-stats fade-up">
-    <div><span class="stat-num">6</span><span class="stat-label">meta-learners</span></div>
-    <div><span class="stat-num">5</span><span class="stat-label">datasets validated</span></div>
-    <div><span class="stat-num">5</span><span class="stat-label">validation checks</span></div>
-    <div><span class="stat-num">3</span><span class="stat-label">metrics</span></div>
+    <div><span class="stat-num">6</span><span class="stat-label">мета-лёрнеров</span></div>
+    <div><span class="stat-num">5</span><span class="stat-label">датасетов проверено</span></div>
+    <div><span class="stat-num">5</span><span class="stat-label">проверок качества</span></div>
+    <div><span class="stat-num">3</span><span class="stat-label">метрик</span></div>
   </div>
 </div>
 
 <section style="background:var(--bg2)">
-  <div class="section-label">Motivation</div>
-  <h2>Why <span>uplift</span> modeling?</h2>
-  <p class="section-sub">Classic response models predict who will buy. Uplift models predict whose behavior will change because of the promotion.</p>
+  <div class="section-label">Мотивация</div>
+  <h2>Зачем <span>uplift</span>-моделирование?</h2>
+  <p class="section-sub">Классические модели предсказывают кто купит. Uplift-модели предсказывают чьё поведение изменится благодаря промо.</p>
   <table class="why-table">
-    <thead><tr><th>Segment</th><th>With promo</th><th>Without promo</th><th>Send?</th><th>Why</th></tr></thead>
+    <thead><tr><th>Сегмент</th><th>С промо</th><th>Без промо</th><th>Отправлять?</th><th>Почему</th></tr></thead>
     <tbody>
-      <tr><td class="segment">Persuadables</td><td class="yes">Buy</td><td class="no">Don't buy</td><td class="yes">✓ Yes</td><td style="color:var(--text-dim);font-size:13px">Promo changes behavior</td></tr>
-      <tr><td class="segment">Sure things</td><td class="yes">Buy</td><td class="yes">Buy</td><td class="no">✗ No</td><td style="color:var(--text-dim);font-size:13px">Wasted budget</td></tr>
-      <tr><td class="segment">Lost causes</td><td class="no">Don't buy</td><td class="no">Don't buy</td><td class="no">✗ No</td><td style="color:var(--text-dim);font-size:13px">Wasted budget</td></tr>
-      <tr><td class="segment">Sleeping dogs</td><td class="no">Don't buy</td><td class="yes">Buy</td><td class="no">✗ No</td><td style="color:var(--text-dim);font-size:13px">Promo is harmful</td></tr>
+      <tr><td class="segment">Persuadables</td><td class="yes">Buy</td><td class="no">Don't buy</td><td class="yes">✓ Yes</td><td style="color:var(--text-dim);font-size:13px">Промо меняет поведение</td></tr>
+      <tr><td class="segment">Sure things</td><td class="yes">Buy</td><td class="yes">Buy</td><td class="no">✗ No</td><td style="color:var(--text-dim);font-size:13px">Бюджет впустую</td></tr>
+      <tr><td class="segment">Lost causes</td><td class="no">Don't buy</td><td class="no">Don't buy</td><td class="no">✗ No</td><td style="color:var(--text-dim);font-size:13px">Бюджет впустую</td></tr>
+      <tr><td class="segment">Sleeping dogs</td><td class="no">Don't buy</td><td class="yes">Buy</td><td class="no">✗ No</td><td style="color:var(--text-dim);font-size:13px">Промо вредит</td></tr>
     </tbody>
   </table>
 </section>
 
 <section>
-  <div class="section-label">How it works</div>
-  <h2>The <span>pipeline</span></h2>
-  <p class="section-sub">Eight stages — with LLM agents at the key bottlenecks.</p>
+  <div class="section-label">Как это работает</div>
+  <h2>Структура <span>пайплайна</span></h2>
+  <p class="section-sub">Восемь шагов — LLM-агенты на ключевых этапах.</p>
   <div class="pipeline">
-    <div class="pipe-step"><div class="pipe-num">01</div><div class="pipe-content"><div class="pipe-title">Schema validation <span class="pipe-badge badge-guard">guard</span></div><div class="pipe-desc">Checks treatment_col, outcome_col, user_id. Blocks if schema invalid.</div></div></div>
-    <div class="pipe-step"><div class="pipe-num">02</div><div class="pipe-content"><div class="pipe-title">Data validation <span class="pipe-badge badge-eval">checks</span></div><div class="pipe-desc">Randomization check (t-test/chi-square), leakage detection, balance check.</div></div></div>
-    <div class="pipe-step"><div class="pipe-num">03</div><div class="pipe-content"><div class="pipe-title">LLM Agent — EDA &amp; preprocessing <span class="pipe-badge badge-agent">LLM</span></div><div class="pipe-desc">Generates fit_preprocess() + apply_preprocess(). Self-validates, fixes errors iteratively. No leakage guaranteed.</div></div></div>
-    <div class="pipe-step"><div class="pipe-num">04</div><div class="pipe-content"><div class="pipe-title">Train 6 meta-learners <span class="pipe-badge badge-model">models</span></div><div class="pipe-desc">DR / T-LGB / T-Ridge / X-learner / R-learner / Hurdle — all with early stopping.</div></div></div>
-    <div class="pipe-step"><div class="pipe-num">05</div><div class="pipe-content"><div class="pipe-title">CV + anti-overfitting <span class="pipe-badge badge-eval">eval</span></div><div class="pipe-desc">k-fold CV with bootstrap CI. Permutation test. Repeated CV. Train/val gap. Learning curves.</div></div></div>
-    <div class="pipe-step"><div class="pipe-num">06</div><div class="pipe-content"><div class="pipe-title">Evaluate all combinations on holdout <span class="pipe-badge badge-eval">search</span></div><div class="pipe-desc">108 combinations: single models, all pairs, triples, full ensemble — all weighting strategies.</div></div></div>
-    <div class="pipe-step"><div class="pipe-num">07</div><div class="pipe-content"><div class="pipe-title">LLM Agent — ensemble selection <span class="pipe-badge badge-agent">LLM</span></div><div class="pipe-desc">Agent sees all 108 results, selects optimal combination with weights and explanation.</div></div></div>
-    <div class="pipe-step"><div class="pipe-num">08</div><div class="pipe-content"><div class="pipe-title">Predict &amp; export <span class="pipe-badge badge-guard">output</span></div><div class="pipe-desc">Final uplift scores. Exports predictions.csv. Preprocessing stats saved as JSON.</div></div></div>
+    <div class="pipe-step"><div class="pipe-num">01</div><div class="pipe-content"><div class="pipe-title">Валидация схемы <span class="pipe-badge badge-guard">guard</span></div><div class="pipe-desc">Проверяет treatment_col, outcome_col, user_id. Блокирует при ошибке.</div></div></div>
+    <div class="pipe-step"><div class="pipe-num">02</div><div class="pipe-content"><div class="pipe-title">Валидация данных <span class="pipe-badge badge-eval">checks</span></div><div class="pipe-desc">Проверка рандомизации (t-test/chi-square), детекция leakage, баланс групп.</div></div></div>
+    <div class="pipe-step"><div class="pipe-num">03</div><div class="pipe-content"><div class="pipe-title">LLM Агент — EDA и препроцессинг <span class="pipe-badge badge-agent">LLM</span></div><div class="pipe-desc">Генерирует fit_preprocess() + apply_preprocess(). Самопроверка, итеративное исправление ошибок. Без leakage.</div></div></div>
+    <div class="pipe-step"><div class="pipe-num">04</div><div class="pipe-content"><div class="pipe-title">Обучение 6 мета-лёрнеров <span class="pipe-badge badge-model">models</span></div><div class="pipe-desc">DR / T-LGB / T-Ridge / X-learner / R-learner / Hurdle — все с early stopping.</div></div></div>
+    <div class="pipe-step"><div class="pipe-num">05</div><div class="pipe-content"><div class="pipe-title">CV + антиовёрфиттинг <span class="pipe-badge badge-eval">eval</span></div><div class="pipe-desc">k-fold CV с bootstrap CI. Permutation test. Repeated CV. Train/val gap. Learning curves.</div></div></div>
+    <div class="pipe-step"><div class="pipe-num">06</div><div class="pipe-content"><div class="pipe-title">Перебор всех комбинаций на holdout <span class="pipe-badge badge-eval">search</span></div><div class="pipe-desc">108 комбинаций: одиночные, пары, тройки, полный ансамбль — все стратегии взвешивания.</div></div></div>
+    <div class="pipe-step"><div class="pipe-num">07</div><div class="pipe-content"><div class="pipe-title">LLM Агент — выбор ансамбля <span class="pipe-badge badge-agent">LLM</span></div><div class="pipe-desc">Агент видит все 108 результатов, выбирает оптимальную комбинацию с объяснением.</div></div></div>
+    <div class="pipe-step"><div class="pipe-num">08</div><div class="pipe-content"><div class="pipe-title">Предсказание и экспорт <span class="pipe-badge badge-guard">output</span></div><div class="pipe-desc">Финальные uplift-scores. Экспорт predictions.csv. Параметры препроцессинга в JSON.</div></div></div>
   </div>
 </section>
 
 <section style="background:var(--bg2)">
-  <div class="section-label">Supported methods</div>
-  <h2>6 <span>meta-learners</span></h2>
-  <p class="section-sub">From simple Ridge baseline to theoretically optimal R-learner.</p>
+  <div class="section-label">Поддерживаемые методы</div>
+  <h2>6 <span>мета-лёрнеров</span></h2>
+  <p class="section-sub">От простого Ridge baseline до теоретически оптимального R-learner.</p>
   <div class="models-grid">
-    <div class="model-card"><div class="model-tag">DR-learner</div><div class="model-name">Doubly Robust</div><div class="model-desc">Consistent if either outcome model or propensity score is correct. Cross-fitting.</div><div class="model-formula">ψ = (μ₁−μ₀) + W(Y−μ₁)/e − (1−W)(Y−μ₀)/(1−e)</div><div class="model-ref">Kennedy (2023)</div></div>
-    <div class="model-card"><div class="model-tag">T-learner LGB</div><div class="model-name">Two-Model LightGBM</div><div class="model-desc">Separate LightGBM for treatment and control. Fast strong baseline.</div><div class="model-formula">τ(x) = μ₁(x) − μ₀(x)</div><div class="model-ref">Künzel et al. (2019)</div></div>
-    <div class="model-card"><div class="model-tag">T-learner Ridge</div><div class="model-name">Two-Model Ridge</div><div class="model-desc">Fastest linear baseline. Smallest train/val gap.</div><div class="model-formula">τ(x) = Ridge₁(x) − Ridge₀(x)</div><div class="model-ref">Künzel et al. (2019)</div></div>
-    <div class="model-card"><div class="model-tag">X-learner</div><div class="model-name">Cross Learner</div><div class="model-desc">Two-stage imputation. Efficient when n_treatment ≪ n_control.</div><div class="model-formula">τ(x) = p·τ_t(x) + (1−p)·τ_c(x)</div><div class="model-ref">Künzel et al. (2019)</div></div>
-    <div class="model-card"><div class="model-tag">R-learner ★</div><div class="model-name">Robinson Decomposition</div><div class="model-desc">Quasi-oracle: convergence depends only on CATE complexity.</div><div class="model-formula">L = E[(Y−m−(W−e)·τ)² · (W−e)²]</div><div class="model-ref">Nie &amp; Wager (2021)</div></div>
-    <div class="model-card"><div class="model-tag">Hurdle</div><div class="model-name">Zero-Inflated Model</div><div class="model-desc">Designed for ~90% zeros. Separate conversion and spend models.</div><div class="model-formula">τ = P_t·E_t[Y|Y>0] − P_c·E_c[Y|Y>0]</div><div class="model-ref">Devriendt et al. (2022)</div></div>
+    <div class="model-card"><div class="model-tag">DR-learner</div><div class="model-name">Doubly Robust</div><div class="model-desc">Состоятелен если хотя бы одна из nuisance-функций верна. Cross-fitting.</div><div class="model-formula">ψ = (μ₁−μ₀) + W(Y−μ₁)/e − (1−W)(Y−μ₀)/(1−e)</div><div class="model-ref">Kennedy (2023)</div></div>
+    <div class="model-card"><div class="model-tag">T-learner LGB</div><div class="model-name">Два LightGBM</div><div class="model-desc">Отдельные LightGBM для treatment и control. Быстрый сильный baseline.</div><div class="model-formula">τ(x) = μ₁(x) − μ₀(x)</div><div class="model-ref">Künzel et al. (2019)</div></div>
+    <div class="model-card"><div class="model-tag">T-learner Ridge</div><div class="model-name">Два Ridge</div><div class="model-desc">Самый быстрый линейный baseline. Минимальный train/val gap.</div><div class="model-formula">τ(x) = Ridge₁(x) − Ridge₀(x)</div><div class="model-ref">Künzel et al. (2019)</div></div>
+    <div class="model-card"><div class="model-tag">X-learner</div><div class="model-name">Cross Learner</div><div class="model-desc">Двухступенчатая импутация. Эффективен при дисбалансе групп.</div><div class="model-formula">τ(x) = p·τ_t(x) + (1−p)·τ_c(x)</div><div class="model-ref">Künzel et al. (2019)</div></div>
+    <div class="model-card"><div class="model-tag">R-learner ★</div><div class="model-name">Robinson Decomposition</div><div class="model-desc">Квази-оракульный: сходимость зависит только от сложности CATE.</div><div class="model-formula">L = E[(Y−m−(W−e)·τ)² · (W−e)²]</div><div class="model-ref">Nie &amp; Wager (2021)</div></div>
+    <div class="model-card"><div class="model-tag">Hurdle</div><div class="model-name">Zero-Inflated модель</div><div class="model-desc">Для ~90% нулей. Отдельные модели конверсии и суммы.</div><div class="model-formula">τ = P_t·E_t[Y|Y>0] − P_c·E_c[Y|Y>0]</div><div class="model-ref">Devriendt et al. (2022)</div></div>
   </div>
 </section>
 
 <section>
-  <div class="section-label">Anti-overfitting</div>
-  <h2>5 <span>validation checks</span></h2>
-  <p class="section-sub">Before training, during CV, and after model selection.</p>
+  <div class="section-label">Антиовёрфиттинг</div>
+  <h2>5 <span>проверок качества</span></h2>
+  <p class="section-sub">До обучения, в процессе CV и после выбора модели.</p>
   <div class="validation-grid">
-    <div class="val-card"><div class="val-icon">⚖️</div><div class="val-name">Randomization check</div><div class="val-desc">t-test and chi-square per feature. Flags imbalanced features indicating bad randomization.</div></div>
-    <div class="val-card"><div class="val-icon">🔍</div><div class="val-name">Leakage detection</div><div class="val-desc">Detects features correlated with treatment assignment — post-treatment leakage.</div></div>
-    <div class="val-card"><div class="val-icon">🎲</div><div class="val-name">Permutation test</div><div class="val-desc">Tests H₀: model ≤ random targeting. 200 permutations. p-value &lt; 0.05 = significant.</div></div>
-    <div class="val-card"><div class="val-icon">📈</div><div class="val-name">Learning curves</div><div class="val-desc">Tracks uplift@K as training size grows. Reveals if more data would help.</div></div>
-    <div class="val-card"><div class="val-icon">🔁</div><div class="val-name">Repeated CV</div><div class="val-desc">3×3-fold CV with different seeds. More robust than single CV run.</div></div>
+    <div class="val-card"><div class="val-icon">⚖️</div><div class="val-name">Проверка рандомизации</div><div class="val-desc">t-test и chi-square по каждому признаку. Флаги несбалансированных признаков.</div></div>
+    <div class="val-card"><div class="val-icon">🔍</div><div class="val-name">Детекция leakage</div><div class="val-desc">Признаки коррелирующие с treatment — post-treatment leakage.</div></div>
+    <div class="val-card"><div class="val-icon">🎲</div><div class="val-name">Permutation test</div><div class="val-desc">H₀: модель ≤ случайного ранжирования. 200 перестановок. p &lt; 0.05 = значимо.</div></div>
+    <div class="val-card"><div class="val-icon">📈</div><div class="val-name">Learning curves</div><div class="val-desc">Uplift@K при росте обучающей выборки. Показывает нужно ли больше данных.</div></div>
+    <div class="val-card"><div class="val-icon">🔁</div><div class="val-name">Repeated CV</div><div class="val-desc">3×3-fold CV с разными seeds. Более надёжная оценка чем однократный CV.</div></div>
   </div>
 </section>
 
 <section style="background:var(--bg2)">
-  <div class="section-label">Ensemble</div>
-  <h2>6 <span>strategies</span> + auto</h2>
-  <p class="section-sub">All strategies evaluated on validation. AI agent picks the best for your chosen metric.</p>
-  <div class="ensemble-grid">
-    <div class="ensemble-card"><div class="ensemble-name">equal_weights</div><div class="ensemble-desc">Simple average. Competitive baseline for diverse model sets.</div></div>
-    <div class="ensemble-card"><div class="ensemble-name">gap_weights</div><div class="ensemble-desc">Inverse of train/val gap. Rewards stable models.</div></div>
-    <div class="ensemble-card"><div class="ensemble-name">ci_weights</div><div class="ensemble-desc">Proportional to cv_lower_ci. Best by stability get most weight.</div></div>
-    <div class="ensemble-card"><div class="ensemble-name">rank_weights</div><div class="ensemble-desc">1/rank weighting. Softer than ci_weights.</div></div>
-    <div class="ensemble-card"><div class="ensemble-name">pairwise_best</div><div class="ensemble-desc">Tries all model pairs, picks best combination of two.</div></div>
-    <div class="ensemble-card"><div class="ensemble-name">best_single</div><div class="ensemble-desc">No ensemble — baseline to verify ensemble adds value.</div></div>
-  </div>
-  <p style="color:var(--text-dim);font-size:14px">Agent evaluates <strong style="color:var(--text)">108 combinations</strong> (single models, all pairs, triples, all-6) across all strategies on holdout data — then explains the winner.</p>
-</section>
-
-<section style="background:var(--bg2)">
-  <div class="section-label">Quick start</div>
-  <h2>Get <span>started</span></h2>
+  <div class="section-label">Быстрый старт</div>
+  <h2>Начать <span>работу</span></h2>
   <div class="code-block">
     <div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div></div>
     <div class="code-body">
 <span class="c-dim"># Windows</span><br>
 py -m venv .venv<br>
 .\.venv\Scripts\Activate.ps1<br>
-py -m pip install -r requirements.txt<br>
-copy .env.example .env <span class="c-dim"># add ANTHROPIC_API_KEY</span><br><br>
+py -m pip install -r requirements.txt<br><br>
 <span class="c-dim"># macOS / Linux</span><br>
 python3 -m venv .venv<br>
 source .venv/bin/activate<br>
-pip install -r requirements.txt<br>
-cp .env.example .env <span class="c-dim"># add ANTHROPIC_API_KEY</span><br><br>
-<span class="c-dim"># run on any dataset</span><br>
-<span class="c-purple">py</span> run_pipeline.py --dataset hillstrom<br>
-<span class="c-purple">py</span> run_pipeline.py --dataset lenta<br>
-<span class="c-purple">py</span> run_pipeline.py --dataset megafon
+pip install -r requirements.txt<br><br>
+<span class="c-dim"># запускай full pipeline</span><br>
+<span class="c-purple">python</span> run_full_pipeline.py
     </div>
   </div>
 </section>
@@ -373,176 +354,201 @@ cp .env.example .env <span class="c-dim"># add ANTHROPIC_API_KEY</span><br><br>
 <div class="page" id="page-magnit">
 
 <div class="ds-hero">
-  <div class="ds-badge">🔒 Private RCT</div>
+  <div class="ds-badge">🔒 Приватный RCT</div>
   <h1>Magnit <span>Retail</span></h1>
-  <p class="ds-desc">Large Russian retailer marketing campaign. Zero-inflated continuous outcome (rec_spend over 7 days). ~90% zeros. Randomized A/B test, 50/50 split.</p>
+  <p class="ds-desc">Маркетинговая кампания крупного российского ритейлера. Zero-inflated непрерывный исход (rec_spend за 7 дней промо). ~90% нулей. Рандомизированный A/B тест, сплит 50/50. Результаты пересчитаны с LLM feature engineering агентом.</p>
   <div class="meta-row">
-    <div class="meta-item"><span class="meta-label">Train</span><span class="meta-value">355,246 rows</span></div>
-    <div class="meta-item"><span class="meta-label">Test</span><span class="meta-value">118,414 rows</span></div>
-    <div class="meta-item"><span class="meta-label">Features</span><span class="meta-value">89 → 73</span></div>
-    <div class="meta-item"><span class="meta-label">Outcome</span><span class="meta-value">rec_spend</span></div>
-    <div class="meta-item"><span class="meta-label">Zero rate</span><span class="meta-value">90.2%</span></div>
+    <div class="meta-item"><span class="meta-label">Train</span><span class="meta-value">355 246 строк</span></div>
+    <div class="meta-item"><span class="meta-label">Test</span><span class="meta-value">118 414 строк</span></div>
+    <div class="meta-item"><span class="meta-label">Признаки</span><span class="meta-value">89 → 115 (с FE)</span></div>
+    <div class="meta-item"><span class="meta-label">Исход</span><span class="meta-value">rec_spend (непрерывный)</span></div>
+    <div class="meta-item"><span class="meta-label">Доля нулей</span><span class="meta-value">90.2%</span></div>
     <div class="meta-item"><span class="meta-label">ATE</span><span class="meta-value">3.1895</span></div>
-    <div class="meta-item"><span class="meta-label">Balance</span><span class="meta-value">49.6% / 50.4%</span></div>
-    <div class="meta-item"><span class="meta-label">Source</span><span class="meta-value">MAGNIT TECH × НИУ ВШЭ 2026</span></div>
+    <div class="meta-item"><span class="meta-label">Баланс</span><span class="meta-value">49.6% / 50.4%</span></div>
+    <div class="meta-item"><span class="meta-label">Источник</span><span class="meta-value">MAGNIT TECH × НИУ ВШЭ 2026</span></div>
   </div>
 </div>
 
 <section>
-  <div class="section-label">Step 1 — Data validation</div>
-  <h2>Validation <span>results</span></h2>
+  <div class="section-label">Шаг 1 — Валидация данных</div>
+  <h2>Проверка <span>качества A/B теста</span></h2>
   <div class="info-grid">
-    <div class="info-card"><div class="info-label">Randomization</div><div class="info-value">28 imbalanced features / 88 (p &lt; 0.05). All SMD &lt; 0.01 — overpowered test at 355K. A/B test is clean.</div></div>
-    <div class="info-card"><div class="info-label">Leakage</div><div class="info-value" style="color:var(--teal)">✓ No leakage. No feature corr with treatment_flg &gt; 0.7.</div></div>
-    <div class="info-card"><div class="info-label">Balance</div><div class="info-value" style="color:var(--teal)">✓ 49.6% / 50.4%. Near-perfect randomization.</div></div>
-    <div class="info-card"><div class="info-label">LLM preprocessing</div><div class="info-value">Verified in 1 iteration. 73 features after dropping high-missing cols.</div></div>
+    <div class="info-card"><div class="info-label">Рандомизация</div><div class="info-value">28 несбалансированных признаков из 88 (p &lt; 0.05). Все SMD &lt; 0.01 — тест мощный при 355K строк, различия несущественны. A/B тест чистый.</div></div>
+    <div class="info-card"><div class="info-label">Data leakage</div><div class="info-value" style="color:var(--teal)">✓ Не обнаружен. Ни один признак не коррелирует с treatment_flg &gt; 0.7.</div></div>
+    <div class="info-card"><div class="info-label">Баланс групп</div><div class="info-value" style="color:var(--teal)">✓ 49.6% / 50.4% — почти идеальная рандомизация.</div></div>
+    <div class="info-card"><div class="info-label">Препроцессинг</div><div class="info-value">LLM агент верифицирован за 1 итерацию. FE агент добавил 26 новых признаков (log, interactions, zero flags). Итого 115 признаков.</div></div>
   </div>
 </section>
 
 <section style="background:var(--bg2)">
-  <div class="section-label">Step 2 — Cross-validation</div>
-  <h2>CV results <span>all 6 models</span></h2>
-  <p style="color:var(--text-dim);font-size:14px;margin-bottom:24px">Fast mode: 100K sample, 3-fold CV, bootstrap n=100. Metric: uplift@10 lower 80% CI.</p>
-  <table class="cv-table">
-    <thead><tr><th>#</th><th>Model</th><th>CV point</th><th>CV lower CI</th><th>Gap</th></tr></thead>
-    <tbody>
-      <tr class="best"><td class="rank-1">1</td><td class="model-name">DR-learner</td><td>21.9716</td><td class="rank-1">16.3668</td><td>5.60</td></tr>
-      <tr><td class="rank-2">2</td><td class="model-name">R-learner</td><td>18.7790</td><td class="rank-2">13.1483</td><td>5.63</td></tr>
-      <tr><td class="rank-3">3</td><td class="model-name">T-learner Ridge</td><td>18.6657</td><td class="rank-3">12.9805</td><td>5.69</td></tr>
-      <tr><td>4</td><td class="model-name">Hurdle</td><td>17.3208</td><td>12.8740</td><td>4.45</td></tr>
-      <tr><td>5</td><td class="model-name">X-learner</td><td>18.7345</td><td>12.6417</td><td>6.09</td></tr>
-      <tr><td>6</td><td class="model-name">T-learner LGB</td><td>17.6857</td><td>11.5939</td><td>6.09</td></tr>
-    </tbody>
-  </table>
-</section>
-
-<section>
-  <div class="section-label">Step 2 — Visualizations</div>
-  <h2>Model <span>comparison</span></h2>
+  <div class="section-label">EDA — анализ данных</div>
+  <h2>Распределение <span>исхода и баланс групп</span></h2>
   <div class="figures-grid">
-    <div class="figure-wrap"><div class="figure-label">CV point vs lower CI</div><img src="assets/magnit/model_comparison.png" alt="Model comparison"></div>
-    <div class="figure-wrap"><div class="figure-label">Stability — train/val gap</div><img src="assets/magnit/stability_check.png" alt="Stability"></div>
+    <div class="figure-wrap"><div class="figure-label">Средний исход по группам и доля нулей</div><img src="assets/magnit/eda_outcome.png" alt="Outcome distribution"></div>
+    <div class="figure-wrap"><div class="figure-label">Баланс treatment / control</div><img src="assets/magnit/eda_balance.png" alt="Group balance"></div>
+  </div>
+  <div style="margin-top:24px">
+    <div class="figure-wrap"><div class="figure-label">Топ признаков по корреляции с исходом</div><img src="assets/magnit/eda_top_features.png" alt="Top features" style="width:100%;max-width:700px;border-radius:8px;border:1px solid var(--border)"></div>
   </div>
 </section>
 
-<section style="background:var(--bg2)">
-  <div class="section-label">Step 3 — Ensemble search</div>
-  <h2>Top-10 of <span>108 combinations</span></h2>
-  <p style="color:var(--text-dim);font-size:14px;margin-bottom:24px">All models on 80% train, evaluated on 20% holdout. Single / pairs / triples / all-6.</p>
-  <table class="combos-table">
-    <thead><tr><th>Combination</th><th>Strategy</th><th>Holdout lower CI</th><th>N</th></tr></thead>
+<section>
+  <div class="section-label">Шаг 2 — Кросс-валидация</div>
+  <h2>CV результаты <span>всех 6 моделей</span></h2>
+  <p style="color:var(--text-dim);font-size:14px;margin-bottom:24px">Fast mode: 100K сэмпл, 3-fold CV, bootstrap n=100. Метрика: uplift@10 нижняя граница 80% CI.</p>
+  <table class="cv-table">
+    <thead><tr><th>#</th><th>Модель</th><th>CV point</th><th>CV lower CI</th><th>Gap</th><th>Примечание</th></tr></thead>
     <tbody>
-      <tr><td>t_learner_lgb + t_learner_ridge</td><td>rank_weights</td><td>21.5051</td><td>2</td></tr>
-      <tr><td>t_learner_ridge + hurdle</td><td>rank_weights</td><td>21.2031</td><td>2</td></tr>
-      <tr><td>dr + t_learner_ridge + x_learner</td><td>equal</td><td>21.0031</td><td>3</td></tr>
-      <tr><td>t_learner_ridge + hurdle</td><td>ci_weights</td><td>20.9222</td><td>2</td></tr>
-      <tr><td>t_learner_lgb + t_learner_ridge + hurdle</td><td>ci_weights</td><td>20.3710</td><td>3</td></tr>
-      <tr><td>t_learner_ridge + r_learner</td><td>gap_weights</td><td>20.3286</td><td>2</td></tr>
-      <tr><td>t_learner_lgb + t_learner_ridge</td><td>gap_weights</td><td>20.2422</td><td>2</td></tr>
-      <tr><td>t_learner_lgb + t_learner_ridge</td><td>equal</td><td>20.1796</td><td>2</td></tr>
-      <tr><td>r_learner + hurdle</td><td>rank_weights</td><td>20.1337</td><td>2</td></tr>
-      <tr><td>t_learner_ridge + x_learner</td><td>ci_weights</td><td>20.0471</td><td>2</td></tr>
+      <tr class="best"><td class="rank-1">1</td><td class="model-name">DR-learner</td><td>21.9716</td><td class="rank-1">16.3668</td><td>5.60</td><td style="font-size:12px;color:var(--text-dim);font-family:var(--sans)">Doubly robust, лучший по CV</td></tr>
+      <tr><td class="rank-2">2</td><td class="model-name">Hurdle</td><td>18.3372</td><td class="rank-2">13.2788</td><td>4.59</td><td style="font-size:12px;color:var(--text-dim);font-family:var(--sans)">+FE: поднялся с #4 на #2</td></tr>
+      <tr><td class="rank-3">3</td><td class="model-name">R-learner</td><td>18.7790</td><td class="rank-3">13.1483</td><td>5.63</td><td style="font-size:12px;color:var(--text-dim);font-family:var(--sans)">Квази-оракульный</td></tr>
+      <tr><td>4</td><td class="model-name">T-learner Ridge</td><td>18.6657</td><td>12.9805</td><td>5.69</td><td style="font-size:12px;color:var(--text-dim);font-family:var(--sans)">Линейный, стабильный</td></tr>
+      <tr><td>5</td><td class="model-name">X-learner</td><td>18.7345</td><td>12.6417</td><td>6.09</td><td style="font-size:12px;color:var(--text-dim);font-family:var(--sans)">Нет преимущества при 50/50</td></tr>
+      <tr><td>6</td><td class="model-name">T-learner LGB</td><td>17.6857</td><td>11.5939</td><td>6.09</td><td style="font-size:12px;color:var(--text-dim);font-family:var(--sans)">Высокая дисперсия</td></tr>
     </tbody>
   </table>
 </section>
 
+<section style="background:var(--bg2)">
+  <div class="section-label">Шаг 2 — Графики</div>
+  <h2>Сравнение <span>моделей</span></h2>
+  <div class="figures-grid">
+    <div class="figure-wrap"><div class="figure-label">CV point vs lower CI по моделям</div><img src="assets/magnit/model_comparison.png" alt="Model comparison"></div>
+    <div class="figure-wrap"><div class="figure-label">Stability check — разрыв train/val</div><img src="assets/magnit/stability_check.png" alt="Stability"></div>
+  </div>
+</section>
+
 <section>
-  <div class="section-label">Step 4 — Agent decision</div>
-  <h2>LLM agent <span>recommendation</span></h2>
+  <div class="section-label">Шаг 3 — Поиск ансамбля</div>
+  <h2>Топ-10 из <span>108 комбинаций</span></h2>
+  <p style="color:var(--text-dim);font-size:14px;margin-bottom:24px">Все модели обучены на 80% train, оценка на 20% holdout. Single / пары / тройки / все 6.</p>
+  <table class="combos-table">
+    <thead><tr><th>Комбинация</th><th>Стратегия</th><th>Holdout lower CI</th><th>N моделей</th></tr></thead>
+    <tbody>
+      <tr><td>t_learner_ridge + r_learner + hurdle</td><td>equal</td><td>22.6423</td><td>3</td></tr>
+      <tr><td>t_learner_ridge + x_learner</td><td>equal</td><td>22.3186</td><td>2</td></tr>
+      <tr><td>t_learner_ridge + x_learner</td><td>gap_weights</td><td>22.2059</td><td>2</td></tr>
+      <tr><td>r_learner + hurdle</td><td>ci_weights</td><td>22.1606</td><td>2</td></tr>
+      <tr><td>x_learner + hurdle</td><td>ci_weights</td><td>22.0165</td><td>2</td></tr>
+      <tr><td>x_learner + hurdle</td><td>gap_weights</td><td>21.7415</td><td>2</td></tr>
+      <tr><td>t_learner_ridge + r_learner + hurdle</td><td>ci_weights</td><td>21.7229</td><td>3</td></tr>
+      <tr><td>dr_learner + hurdle</td><td>rank_weights</td><td>21.4353</td><td>2</td></tr>
+      <tr><td>dr_learner + hurdle</td><td>ci_weights</td><td>21.3158</td><td>2</td></tr>
+      <tr><td>all_models</td><td>equal</td><td>21.2600</td><td>6</td></tr>
+    </tbody>
+  </table>
+  <p style="color:var(--text-dim);font-size:13px;margin-top:16px">Полная таблица (108 строк): <code style="font-family:var(--mono);color:var(--purple)">experiments/results/magnit/tables/all_combinations.csv</code></p>
+</section>
+
+<section style="background:var(--bg2)">
+  <div class="section-label">Шаг 4 — Решение агента</div>
+  <h2>LLM агент <span>выбирает ансамбль</span></h2>
   <div class="agent-box">
     <div class="agent-header">
       <div class="agent-icon">🤖</div>
-      <div><div class="agent-title">Ensemble Agent</div><div class="agent-subtitle">claude-sonnet-4-5 · 108 combinations evaluated</div></div>
+      <div><div class="agent-title">Ensemble Agent</div><div class="agent-subtitle">claude-sonnet-4-5 · проверено 108 комбинаций</div></div>
     </div>
     <div class="decision-row">
-      <div><div class="decision-label">Selected</div><div class="decision-value">T-Ridge + T-LGB</div></div>
-      <div><div class="decision-label">Strategy</div><div class="decision-value">rank_weights</div></div>
-      <div><div class="decision-label">Holdout lower CI</div><div class="decision-value">21.5051</div></div>
+      <div><div class="decision-label">Выбрано</div><div class="decision-value">T-Ridge + R + Hurdle</div></div>
+      <div><div class="decision-label">Стратегия</div><div class="decision-value">equal weights</div></div>
+      <div><div class="decision-label">Holdout lower CI</div><div class="decision-value">22.6423</div></div>
     </div>
     <div class="weights-row">
-      <div class="weight-chip"><span class="weight-model">t_learner_ridge</span> <span class="weight-val">0.667</span></div>
-      <div class="weight-chip"><span class="weight-model">t_learner_lgb</span> <span class="weight-val">0.333</span></div>
+      <div class="weight-chip"><span class="weight-model">t_learner_ridge</span> <span class="weight-val">0.333</span></div>
+      <div class="weight-chip"><span class="weight-model">r_learner</span> <span class="weight-val">0.333</span></div>
+      <div class="weight-chip"><span class="weight-model">hurdle</span> <span class="weight-val">0.333</span></div>
     </div>
-    <div class="explanation">T-Ridge + T-LGB with rank_weights achieves the highest holdout lower CI (21.5051) — a 12.4% improvement over the best single model. Both use the T-learner framework but with different base learners (Ridge vs LightGBM), providing algorithmic diversity. Adding a third model drops performance to 21.0031, suggesting diminishing returns. Low overfitting risk: holdout result substantially exceeds individual CV lower CIs, indicating strong generalization rather than overfitting.</div>
-  </div>
-</section>
-
-<section style="background:var(--bg2)">
-  <div class="section-label">Step 5 — Final metrics</div>
-  <h2>Holdout <span>metrics</span></h2>
-  <p style="color:var(--text-dim);font-size:14px;margin-bottom:24px">Ensemble: T-Ridge (0.667) + T-LGB (0.333). Holdout: 71,049 rows. Bootstrap n=200.</p>
-  <div class="metrics-grid">
-    <div class="metric-card"><div class="metric-name">uplift@5%</div><div class="metric-value good">27.37</div><div class="metric-sub">lower 80% CI</div></div>
-    <div class="metric-card"><div class="metric-name">uplift@10%</div><div class="metric-value good">19.93</div><div class="metric-sub">lower 80% CI</div></div>
-    <div class="metric-card"><div class="metric-name">uplift@20%</div><div class="metric-value">11.58</div><div class="metric-sub">lower 80% CI</div></div>
-    <div class="metric-card"><div class="metric-name">AUUC</div><div class="metric-value">3.43</div><div class="metric-sub">normalized</div></div>
-    <div class="metric-card"><div class="metric-name">Qini</div><div class="metric-value">1.28</div><div class="metric-sub">coefficient</div></div>
+    <div class="explanation">T-Ridge + R-learner + Hurdle с equal weights — лучшая комбинация из 108: holdout lower CI = 22.64, улучшение +16.3% vs лучшей одиночной модели. Три принципиально разных подхода: линейный (Ridge), Robinson decomposition (R-learner), двухступенчатый для zero-inflated (Hurdle). DR-learner лучший по CV (16.37) но уступает в ансамбле — добавление более слабых моделей снижает ансамблевую метрику. Все 6 моделей вместе (21.26) хуже тройки (22.64) — лишние модели добавляют шум.</div>
   </div>
 </section>
 
 <section>
-  <div class="section-label">Step 6 — Significance</div>
-  <h2>Permutation <span>test</span></h2>
-  <div class="perm-box">
-    <div class="perm-result"><div class="perm-badge">✓ Significant (p &lt; 0.05)</div></div>
-    <div class="perm-stats">
-      <div><div class="perm-stat-label">Observed uplift@10</div><div class="perm-stat-value" style="color:var(--teal)">23.5041</div></div>
-      <div><div class="perm-stat-label">p-value</div><div class="perm-stat-value" style="color:var(--teal)">0.0000</div></div>
-      <div><div class="perm-stat-label">Null mean ± std</div><div class="perm-stat-value">3.20 ± 1.89</div></div>
-      <div><div class="perm-stat-label">vs random</div><div class="perm-stat-value" style="color:var(--purple)">+635%</div></div>
-    </div>
+  <div class="section-label">Шаг 5 — Финальные метрики</div>
+  <h2>Результаты <span>на holdout</span></h2>
+  <p style="color:var(--text-dim);font-size:14px;margin-bottom:24px">Ансамбль: T-Ridge (0.333) + R (0.333) + Hurdle (0.333). Holdout: 71 049 строк. Bootstrap n=200.</p>
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="metric-name">uplift@5%</div><div class="metric-value good">34.38</div><div class="metric-sub">нижняя 80% CI</div></div>
+    <div class="metric-card"><div class="metric-name">uplift@10%</div><div class="metric-value good">21.93</div><div class="metric-sub">нижняя 80% CI</div></div>
+    <div class="metric-card"><div class="metric-name">uplift@20%</div><div class="metric-value">11.94</div><div class="metric-sub">нижняя 80% CI</div></div>
+    <div class="metric-card"><div class="metric-name">AUUC</div><div class="metric-value">3.68</div><div class="metric-sub">нормализованный</div></div>
+    <div class="metric-card"><div class="metric-name">Qini</div><div class="metric-value">1.42</div><div class="metric-sub">коэффициент</div></div>
+  </div>
+  <div style="margin-top:20px;padding:16px 20px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;max-width:500px">
+    <p style="font-family:var(--mono);font-size:11px;color:var(--text-dim);margin-bottom:8px">СРАВНЕНИЕ С ПРЕДЫДУЩИМ ЗАПУСКОМ (без FE)</p>
+    <p style="font-size:14px;color:var(--text-dim)">Holdout CI: 21.51 → <span style="color:var(--teal)">22.64</span> (+5.2%)</p>
+    <p style="font-size:14px;color:var(--text-dim)">Ансамбль: T-Ridge+T-LGB → <span style="color:var(--teal)">T-Ridge+R+Hurdle</span></p>
   </div>
 </section>
 
 <section style="background:var(--bg2)">
-  <div class="section-label">Output</div>
-  <h2>Final <span>predictions</span></h2>
-  <div class="info-grid">
-    <div class="info-card"><div class="info-label">File</div><div class="info-value" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><a href="https://github.com/allisksks/autoprep-uplift/blob/main/experiments/results/predictions.csv" target="_blank" style="color:var(--purple);text-decoration:none;font-family:var(--mono)">experiments/results/predictions.csv ↗</a></div></div>
-    <div class="info-card"><div class="info-label">Rows</div><div class="info-value">118,414 (full test set)</div></div>
-    <div class="info-card"><div class="info-label">Distribution</div><div class="info-value">mean=3.34 std=9.36<br>p10=−3.19 p90=11.04</div></div>
-    <div class="info-card"><div class="info-label">Negative scores</div><div class="info-value">~28% — sleeping dogs</div></div>
+  <div class="section-label">Шаг 6 — Проверка значимости</div>
+  <h2>Permutation <span>test</span></h2>
+  <div class="perm-box">
+    <div class="perm-result"><div class="perm-badge">✓ Значимо (p &lt; 0.05)</div></div>
+    <div class="perm-stats">
+      <div><div class="perm-stat-label">Observed uplift@10</div><div class="perm-stat-value" style="color:var(--teal)">25.6361</div></div>
+      <div><div class="perm-stat-label">p-value</div><div class="perm-stat-value" style="color:var(--teal)">0.0000</div></div>
+      <div><div class="perm-stat-label">Null mean ± std</div><div class="perm-stat-value">3.30 ± 1.86</div></div>
+      <div><div class="perm-stat-label">vs случайного</div><div class="perm-stat-value" style="color:var(--purple)">+677%</div></div>
+    </div>
   </div>
 </section>
 
-</div><!-- end magnit -->
+<section>
+  <div class="section-label">Выходные данные</div>
+  <h2>Финальные <span>предсказания</span></h2>
+  <div class="info-grid">
+    <div class="info-card"><div class="info-label">Файл</div><div class="info-value" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><a href="https://github.com/allisksks/autoprep-uplift/blob/main/experiments/results/predictions.csv" target="_blank" style="color:var(--purple);text-decoration:none;font-family:var(--mono)">experiments/results/predictions.csv ↗</a></div></div>
+    <div class="info-card"><div class="info-label">Строк</div><div class="info-value">118 414 (полный тестовый сет)</div></div>
+    <div class="info-card"><div class="info-label">Распределение score</div><div class="info-value">mean=3.47 std=10.96<br>p10=−4.11 p90=11.66</div></div>
+    <div class="info-card"><div class="info-label">Отрицательные score</div><div class="info-value">~28% — sleeping dogs (промо вредит)</div></div>
+  </div>
+</section>
 
-<!-- ═══════════════════ COMING SOON PAGES ═══════════════════ -->
+</div>
 <div class="page" id="page-hillstrom">
 
 <div class="ds-hero">
-  <div class="ds-badge">📧 Public RCT</div>
+  <div class="ds-badge">📧 Публичный RCT</div>
   <h1>Hillstrom <span>Email</span></h1>
-  <p class="ds-desc">Classic email marketing dataset by Kevin Hillstrom (2008). Three treatment arms: men's email, women's email, no email. Continuous spend outcome over 2 weeks. Available via scikit-uplift.</p>
+  <p class="ds-desc">Классический датасет email-маркетинга от Kevin Hillstrom (2008). Три группы: письмо для мужчин, письмо для женщин, без письма. Непрерывный исход — трата за 2 недели. Доступен через scikit-uplift.</p>
   <div class="meta-row">
-    <div class="meta-item"><span class="meta-label">Train</span><span class="meta-value">51,200 rows</span></div>
-    <div class="meta-item"><span class="meta-label">Test</span><span class="meta-value">12,800 rows</span></div>
-    <div class="meta-item"><span class="meta-label">Features</span><span class="meta-value">8 → 18 after prep</span></div>
-    <div class="meta-item"><span class="meta-label">Outcome</span><span class="meta-value">spend (continuous)</span></div>
-    <div class="meta-item"><span class="meta-label">Zero rate</span><span class="meta-value">85.3%</span></div>
+    <div class="meta-item"><span class="meta-label">Train</span><span class="meta-value">51 200 строк</span></div>
+    <div class="meta-item"><span class="meta-label">Test</span><span class="meta-value">12 800 строк</span></div>
+    <div class="meta-item"><span class="meta-label">Признаки</span><span class="meta-value">8 → 26 (с FE)</span></div>
+    <div class="meta-item"><span class="meta-label">Исход</span><span class="meta-value">spend (непрерывный)</span></div>
+    <div class="meta-item"><span class="meta-label">Доля нулей</span><span class="meta-value">85.3%</span></div>
     <div class="meta-item"><span class="meta-label">ATE</span><span class="meta-value">0.0602</span></div>
-    <div class="meta-item"><span class="meta-label">Balance</span><span class="meta-value">66.8% / 33.2%</span></div>
-    <div class="meta-item"><span class="meta-label">Source</span><span class="meta-value"><a href="https://blog.minethatdata.com/2008/03/minethatdata-e-mail-analytics-and-data.html" target="_blank" style="color:var(--purple)">MineThatData 2008 ↗</a></span></div>
+    <div class="meta-item"><span class="meta-label">Баланс</span><span class="meta-value">66.8% / 33.2%</span></div>
+    <div class="meta-item"><span class="meta-label">Источник</span><span class="meta-value"><a href="https://blog.minethatdata.com/2008/03/minethatdata-e-mail-analytics-and-data.html" target="_blank" style="color:var(--purple)">MineThatData 2008 ↗</a></span></div>
   </div>
 </div>
 
 <section>
-  <div class="section-label">Step 1 — Data validation</div>
-  <h2>Validation <span>results</span></h2>
+  <div class="section-label">Шаг 1 — Валидация</div>
+  <h2>Проверка <span>качества данных</span></h2>
   <div class="info-grid">
-    <div class="info-card"><div class="info-label">Randomization</div><div class="info-value">1 imbalanced feature / 8. Clean randomization.</div></div>
-    <div class="info-card"><div class="info-label">Leakage</div><div class="info-value" style="color:var(--teal)">✓ No leakage detected.</div></div>
-    <div class="info-card"><div class="info-label">Balance</div><div class="info-value" style="color:var(--amber)">⚠️ 66.8% / 33.2% — imbalanced. Men + Women email arms merged into one treatment. Affects DR-learner and X-learner.</div></div>
-    <div class="info-card"><div class="info-label">Note</div><div class="info-value">Dataset has 3 arms (men, women, no email). We merged treatment arms. This explains DR-learner underperformance vs Magnit.</div></div>
+    <div class="info-card"><div class="info-label">Рандомизация</div><div class="info-value">1 несбалансированный признак из 8. Рандомизация чистая.</div></div>
+    <div class="info-card"><div class="info-label">Data leakage</div><div class="info-value" style="color:var(--teal)">✓ Не обнаружен.</div></div>
+    <div class="info-card"><div class="info-label">Баланс групп</div><div class="info-value" style="color:var(--amber)">⚠️ 66.8% / 33.2% — дисбаланс. Три treatment arm объединены в один. Влияет на DR-learner и X-learner.</div></div>
+    <div class="info-card"><div class="info-label">Feature Engineering</div><div class="info-value">FE агент создал 18 новых признаков: log transforms, interaction terms, zero flags, quantile bins. Итого 26.</div></div>
   </div>
 </section>
 
 <section style="background:var(--bg2)">
-  <div class="section-label">Step 2 — Cross-validation</div>
-  <h2>CV results <span>all 6 models</span></h2>
-  <p style="color:var(--text-dim);font-size:14px;margin-bottom:24px">Fast mode: 100K sample, 3-fold CV, bootstrap n=100. Metric: uplift@10 lower 80% CI.</p>
+  <div class="section-label">EDA</div>
+  <h2>Анализ <span>данных</span></h2>
+  <div class="figures-grid">
+    <div class="figure-wrap"><div class="figure-label">Распределение исхода</div><img src="assets/hillstrom/eda_outcome.png" alt="Outcome"></div>
+    <div class="figure-wrap"><div class="figure-label">Баланс групп</div><img src="assets/hillstrom/eda_balance.png" alt="Balance"></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Шаг 2 — Кросс-валидация</div>
+  <h2>CV результаты <span>всех 6 моделей</span></h2>
   <table class="cv-table">
-    <thead><tr><th>#</th><th>Model</th><th>CV point</th><th>CV lower CI</th><th>Gap</th></tr></thead>
+    <thead><tr><th>#</th><th>Модель</th><th>CV point</th><th>CV lower CI</th><th>Gap</th></tr></thead>
     <tbody>
       <tr class="best"><td class="rank-1">1</td><td class="model-name">T-learner Ridge</td><td>0.0964</td><td class="rank-1">0.0713</td><td>0.025</td></tr>
       <tr><td class="rank-2">2</td><td class="model-name">Hurdle</td><td>0.0898</td><td class="rank-2">0.0634</td><td>0.026</td></tr>
@@ -552,115 +558,124 @@ cp .env.example .env <span class="c-dim"># add ANTHROPIC_API_KEY</span><br><br>
       <tr><td>6</td><td class="model-name">DR-learner</td><td>0.0657</td><td>0.0410</td><td>0.025</td></tr>
     </tbody>
   </table>
-  <p style="color:var(--text-dim);font-size:13px;margin-top:16px">Key insight: DR-learner last (vs #1 on Magnit). Imbalanced groups (67/33) hurt propensity-based models. T-Ridge wins on balanced-sensitive data.</p>
+  <p style="color:var(--text-dim);font-size:13px;margin-top:12px">⚡ DR-learner последний — дисбаланс 67/33 ломает propensity-based модели. На Magnit (50/50) он первый.</p>
 </section>
 
-<section>
-  <div class="section-label">Step 2 — Visualization</div>
-  <h2>Model <span>comparison</span></h2>
+<section style="background:var(--bg2)">
+  <div class="section-label">Визуализация</div>
+  <h2>Сравнение <span>моделей</span></h2>
   <div class="figures-grid">
     <div class="figure-wrap"><div class="figure-label">CV point vs lower CI</div><img src="assets/hillstrom/model_comparison.png" alt="Model comparison"></div>
   </div>
 </section>
 
-<section style="background:var(--bg2)">
-  <div class="section-label">Step 3 — Ensemble search</div>
-  <h2>Agent <span>recommendation</span></h2>
-  <p style="color:var(--text-dim);font-size:14px;margin-bottom:24px">Only 2 models available on holdout (LightGBM-based failed due to special chars in feature names). 8 combinations evaluated.</p>
+<section>
+  <div class="section-label">Шаг 3 — Ансамбль</div>
+  <h2>Решение <span>агента</span></h2>
   <div class="agent-box">
     <div class="agent-header">
       <div class="agent-icon">🤖</div>
-      <div><div class="agent-title">Ensemble Agent</div><div class="agent-subtitle">claude-sonnet-4-5 · 8 combinations evaluated</div></div>
+      <div><div class="agent-title">Ensemble Agent</div><div class="agent-subtitle">claude-sonnet-4-5 · 108 комбинаций</div></div>
     </div>
     <div class="decision-row">
-      <div><div class="decision-label">Selected</div><div class="decision-value">T-Ridge + Hurdle</div></div>
-      <div><div class="decision-label">Strategy</div><div class="decision-value">gap_weights</div></div>
-      <div><div class="decision-label">Holdout lower CI</div><div class="decision-value">0.1000</div></div>
+      <div><div class="decision-label">Выбрано</div><div class="decision-value">T-Ridge + R + Hurdle</div></div>
+      <div><div class="decision-label">Стратегия</div><div class="decision-value">ci_weights</div></div>
+      <div><div class="decision-label">Holdout lower CI</div><div class="decision-value">0.0971</div></div>
     </div>
     <div class="weights-row">
-      <div class="weight-chip"><span class="weight-model">t_learner_ridge</span> <span class="weight-val">0.503</span></div>
-      <div class="weight-chip"><span class="weight-model">hurdle</span> <span class="weight-val">0.497</span></div>
+      <div class="weight-chip"><span class="weight-model">t_learner_ridge</span> <span class="weight-val">0.390</span></div>
+      <div class="weight-chip"><span class="weight-model">r_learner</span> <span class="weight-val">0.264</span></div>
+      <div class="weight-chip"><span class="weight-model">hurdle</span> <span class="weight-val">0.346</span></div>
     </div>
-    <div class="explanation">T-Ridge + Hurdle with gap_weights achieves holdout lower CI = 0.100 — a 10.9% improvement over best single model. Near-equal weights (50.3/49.7%) suggest genuine complementarity. Ridge provides linear baseline, Hurdle handles zero-inflation. Low overfitting risk: consistent across weighting strategies.</div>
-  </div>
-</section>
-
-<section>
-  <div class="section-label">Step 4 — Final metrics</div>
-  <h2>Holdout <span>metrics</span></h2>
-  <p style="color:var(--text-dim);font-size:14px;margin-bottom:24px">Ensemble: T-Ridge (0.503) + Hurdle (0.497). Bootstrap n=200.</p>
-  <div class="metrics-grid">
-    <div class="metric-card"><div class="metric-name">uplift@5%</div><div class="metric-value good">0.0762</div><div class="metric-sub">lower 80% CI</div></div>
-    <div class="metric-card"><div class="metric-name">uplift@10%</div><div class="metric-value good">0.1037</div><div class="metric-sub">lower 80% CI</div></div>
-    <div class="metric-card"><div class="metric-name">uplift@20%</div><div class="metric-value">0.0634</div><div class="metric-sub">lower 80% CI</div></div>
-    <div class="metric-card"><div class="metric-name">AUUC</div><div class="metric-value">1.3758</div><div class="metric-sub">normalized</div></div>
-    <div class="metric-card"><div class="metric-name">Qini</div><div class="metric-value">0.012</div><div class="metric-sub">coefficient</div></div>
+    <div class="explanation">T-Ridge + R-learner + Hurdle с ci_weights: holdout lower CI = 0.0971, улучшение +2.9% vs лучшей одиночной (hurdle = 0.0944). Три принципиально разных подхода — линейный, каузальный, двухступенчатый. CI-взвешивание правильно отдаёт приоритет T-Ridge и Hurdle которые стабильнее.</div>
   </div>
 </section>
 
 <section style="background:var(--bg2)">
-  <div class="section-label">Step 5 — Significance</div>
-  <h2>Permutation <span>test</span></h2>
-  <div class="perm-box">
-    <div class="perm-result"><div class="perm-badge">✓ Significant (p &lt; 0.05)</div></div>
-    <div class="perm-stats">
-      <div><div class="perm-stat-label">Observed uplift@10</div><div class="perm-stat-value" style="color:var(--teal)">0.1312</div></div>
-      <div><div class="perm-stat-label">p-value</div><div class="perm-stat-value" style="color:var(--teal)">0.0050</div></div>
-      <div><div class="perm-stat-label">Null mean ± std</div><div class="perm-stat-value">0.058 ± 0.020</div></div>
-      <div><div class="perm-stat-label">vs random</div><div class="perm-stat-value" style="color:var(--purple)">+126%</div></div>
-    </div>
+  <div class="section-label">Финальные метрики</div>
+  <h2>Holdout <span>результаты</span></h2>
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="metric-name">uplift@5%</div><div class="metric-value good">0.0588</div><div class="metric-sub">нижняя 80% CI</div></div>
+    <div class="metric-card"><div class="metric-name">uplift@10%</div><div class="metric-value good">0.0897</div><div class="metric-sub">нижняя 80% CI</div></div>
+    <div class="metric-card"><div class="metric-name">uplift@20%</div><div class="metric-value">0.0596</div><div class="metric-sub">нижняя 80% CI</div></div>
+    <div class="metric-card"><div class="metric-name">AUUC</div><div class="metric-value">1.3432</div><div class="metric-sub">нормализованный</div></div>
+    <div class="metric-card"><div class="metric-name">Qini</div><div class="metric-value">0.0128</div><div class="metric-sub">коэффициент</div></div>
   </div>
 </section>
 
 <section>
-  <div class="section-label">Key finding</div>
-  <h2>Cross-dataset <span>insight</span></h2>
-  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:28px;max-width:700px">
+  <div class="section-label">Permutation test</div>
+  <h2>Статистическая <span>значимость</span></h2>
+  <div class="perm-box">
+    <div class="perm-result"><div class="perm-badge">✓ Значимо (p &lt; 0.05)</div></div>
+    <div class="perm-stats">
+      <div><div class="perm-stat-label">Observed uplift@10</div><div class="perm-stat-value" style="color:var(--teal)">0.1228</div></div>
+      <div><div class="perm-stat-label">p-value</div><div class="perm-stat-value" style="color:var(--teal)">0.0050</div></div>
+      <div><div class="perm-stat-label">Null mean ± std</div><div class="perm-stat-value">0.057 ± 0.019</div></div>
+      <div><div class="perm-stat-label">vs случайного</div><div class="perm-stat-value" style="color:var(--purple)">+115%</div></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--bg2)">
+  <div class="section-label">Ключевой вывод</div>
+  <h2>Cross-dataset <span>инсайт</span></h2>
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:28px;max-width:700px">
     <p style="font-size:15px;line-height:1.7;color:var(--text-dim)">
-      On Magnit (50/50 balance), <span style="color:var(--purple)">DR-learner ranked #1</span> with CV lower CI = 16.37.<br><br>
-      On Hillstrom (67/33 imbalance), <span style="color:var(--teal)">T-Ridge ranked #1</span> with CV lower CI = 0.071.<br><br>
-      This confirms the theoretical prediction from Künzel et al. (2019): propensity-based models (DR, X, R) underperform when treatment groups are imbalanced. The optimal model is dataset-dependent — which is exactly why automated benchmarking matters.
+      На Magnit (50/50) <span style="color:var(--purple)">DR-learner #1</span> (CV lower CI = 16.37).<br><br>
+      На Hillstrom (67/33) <span style="color:var(--teal)">T-Ridge #1</span> (CV lower CI = 0.071).<br><br>
+      Это подтверждает теорию Künzel et al. (2019): propensity-based модели (DR, X, R) хуже работают при дисбалансе групп. Оптимальная модель зависит от датасета — именно поэтому автоматический бенчмаркинг важен.
     </p>
   </div>
 </section>
 
 </div>
-
 <div class="page" id="page-megafon">
 
 <div class="ds-hero">
-  <div class="ds-badge">📱 Public RCT</div>
+  <div class="ds-badge">📱 Публичный RCT</div>
   <h1>Megafon <span>Telecom</span></h1>
-  <p class="ds-desc">Russian telecom company marketing campaign. Binary response outcome. Near-perfect 50/50 balance. Available via scikit-uplift. High uplift signal — best dataset for model discrimination.</p>
+  <p class="ds-desc">Маркетинговая кампания российского телеком-оператора. Бинарный исход. Почти идеальный баланс 50/50. Доступен через scikit-uplift. Наибольший uplift-сигнал среди всех датасетов — лучший для сравнения моделей.</p>
   <div class="meta-row">
-    <div class="meta-item"><span class="meta-label">Train</span><span class="meta-value">480,000 rows</span></div>
-    <div class="meta-item"><span class="meta-label">Test</span><span class="meta-value">120,000 rows</span></div>
-    <div class="meta-item"><span class="meta-label">Features</span><span class="meta-value">50</span></div>
-    <div class="meta-item"><span class="meta-label">Outcome</span><span class="meta-value">target (binary)</span></div>
-    <div class="meta-item"><span class="meta-label">Zero rate</span><span class="meta-value">79.6%</span></div>
+    <div class="meta-item"><span class="meta-label">Train</span><span class="meta-value">480 000 строк</span></div>
+    <div class="meta-item"><span class="meta-label">Test</span><span class="meta-value">120 000 строк</span></div>
+    <div class="meta-item"><span class="meta-label">Признаки</span><span class="meta-value">50 → 89 (с FE)</span></div>
+    <div class="meta-item"><span class="meta-label">Исход</span><span class="meta-value">target (бинарный)</span></div>
+    <div class="meta-item"><span class="meta-label">Доля нулей</span><span class="meta-value">79.6%</span></div>
     <div class="meta-item"><span class="meta-label">ATE</span><span class="meta-value">0.0498</span></div>
-    <div class="meta-item"><span class="meta-label">Balance</span><span class="meta-value">50.1% / 49.9%</span></div>
-    <div class="meta-item"><span class="meta-label">Source</span><span class="meta-value"><a href="https://github.com/maks-sh/scikit-uplift" target="_blank" style="color:var(--purple)">scikit-uplift ↗</a></span></div>
+    <div class="meta-item"><span class="meta-label">Баланс</span><span class="meta-value">50.1% / 49.9%</span></div>
+    <div class="meta-item"><span class="meta-label">Источник</span><span class="meta-value"><a href="https://github.com/maks-sh/scikit-uplift" target="_blank" style="color:var(--purple)">scikit-uplift ↗</a></span></div>
   </div>
 </div>
 
 <section>
-  <div class="section-label">Step 1 — Data validation</div>
-  <h2>Validation <span>results</span></h2>
+  <div class="section-label">Валидация</div>
+  <h2>Проверка <span>качества данных</span></h2>
   <div class="info-grid">
-    <div class="info-card"><div class="info-label">Randomization</div><div class="info-value">1 imbalanced feature / 50. Near-perfect randomization.</div></div>
-    <div class="info-card"><div class="info-label">Leakage</div><div class="info-value" style="color:var(--teal)">✓ No leakage detected.</div></div>
-    <div class="info-card"><div class="info-label">Balance</div><div class="info-value" style="color:var(--teal)">✓ 50.1% / 49.9% — ideal balance. Best conditions for all models.</div></div>
-    <div class="info-card"><div class="info-label">Note</div><div class="info-value">Highest ATE (0.05) and clearest signal across all datasets. Ideal for benchmarking model differences.</div></div>
+    <div class="info-card"><div class="info-label">Рандомизация</div><div class="info-value">1 несбалансированный признак из 50. Почти идеальная рандомизация.</div></div>
+    <div class="info-card"><div class="info-label">Data leakage</div><div class="info-value" style="color:var(--teal)">✓ Не обнаружен.</div></div>
+    <div class="info-card"><div class="info-label">Баланс групп</div><div class="info-value" style="color:var(--teal)">✓ 50.1% / 49.9% — идеальный баланс. Лучшие условия для всех моделей.</div></div>
+    <div class="info-card"><div class="info-label">Feature Engineering</div><div class="info-value">FE агент создал 39 новых признаков (log, sqrt, interactions, zero flags). Итого 89 признаков.</div></div>
   </div>
 </section>
 
 <section style="background:var(--bg2)">
-  <div class="section-label">Step 2 — Cross-validation</div>
-  <h2>CV results <span>all 6 models</span></h2>
-  <p style="color:var(--text-dim);font-size:14px;margin-bottom:24px">Fast mode: 100K sample, 3-fold CV, bootstrap n=100. Metric: uplift@10 lower 80% CI.</p>
+  <div class="section-label">EDA</div>
+  <h2>Анализ <span>данных</span></h2>
+  <div class="figures-grid">
+    <div class="figure-wrap"><div class="figure-label">Распределение исхода</div><img src="assets/megafon/eda_outcome.png" alt="Outcome"></div>
+    <div class="figure-wrap"><div class="figure-label">Баланс групп</div><img src="assets/megafon/eda_balance.png" alt="Balance"></div>
+  </div>
+  <div style="margin-top:24px">
+    <div class="figure-wrap"><div class="figure-label">Топ признаков по корреляции с исходом</div><img src="assets/megafon/eda_top_features.png" alt="Top features" style="width:100%;max-width:700px;border-radius:8px;border:1px solid var(--border)"></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Кросс-валидация</div>
+  <h2>CV результаты <span>всех 6 моделей</span></h2>
   <table class="cv-table">
-    <thead><tr><th>#</th><th>Model</th><th>CV point</th><th>CV lower CI</th><th>Gap</th></tr></thead>
+    <thead><tr><th>#</th><th>Модель</th><th>CV point</th><th>CV lower CI</th><th>Gap</th></tr></thead>
     <tbody>
       <tr class="best"><td class="rank-1">1</td><td class="model-name">Hurdle</td><td>0.4004</td><td class="rank-1">0.3816</td><td>0.019</td></tr>
       <tr><td class="rank-2">2</td><td class="model-name">DR-learner</td><td>0.3815</td><td class="rank-2">0.3617</td><td>0.020</td></tr>
@@ -670,102 +685,109 @@ cp .env.example .env <span class="c-dim"># add ANTHROPIC_API_KEY</span><br><br>
       <tr><td>6</td><td class="model-name">T-learner Ridge</td><td>0.1274</td><td>0.1064</td><td>0.021</td></tr>
     </tbody>
   </table>
-  <p style="color:var(--text-dim);font-size:13px;margin-top:16px">Key insight: Hurdle #1 — high zero rate (79.6%) rewards two-stage modeling. T-Ridge last — linear model insufficient for complex telecom patterns.</p>
+  <p style="color:var(--text-dim);font-size:13px;margin-top:12px">⚡ Hurdle #1 — высокая доля нулей (79.6%) вознаграждает двухступенчатое моделирование. T-Ridge последний — линейной модели недостаточно для сложных телеком-паттернов.</p>
 </section>
 
-<section>
-  <div class="section-label">Step 2 — Visualization</div>
-  <h2>Model <span>comparison</span></h2>
+<section style="background:var(--bg2)">
+  <div class="section-label">Визуализация</div>
+  <h2>Сравнение <span>моделей</span></h2>
   <div class="figures-grid">
     <div class="figure-wrap"><div class="figure-label">CV point vs lower CI</div><img src="assets/megafon/model_comparison.png" alt="Model comparison"></div>
   </div>
 </section>
 
-<section style="background:var(--bg2)">
-  <div class="section-label">Step 3 — Ensemble</div>
-  <h2>Agent <span>recommendation</span></h2>
+<section>
+  <div class="section-label">Ансамбль</div>
+  <h2>Решение <span>агента</span></h2>
   <div class="agent-box">
     <div class="agent-header">
       <div class="agent-icon">🤖</div>
-      <div><div class="agent-title">Ensemble Agent</div><div class="agent-subtitle">claude-sonnet-4-5 · 108 combinations evaluated</div></div>
+      <div><div class="agent-title">Ensemble Agent</div><div class="agent-subtitle">claude-sonnet-4-5 · 108 комбинаций</div></div>
     </div>
     <div class="decision-row">
-      <div><div class="decision-label">Selected</div><div class="decision-value">T-LGB + T-Ridge + Hurdle</div></div>
-      <div><div class="decision-label">Strategy</div><div class="decision-value">equal weights</div></div>
-      <div><div class="decision-label">Holdout lower CI</div><div class="decision-value">0.4523</div></div>
+      <div><div class="decision-label">Выбрано</div><div class="decision-value">DR + T-LGB + Hurdle</div></div>
+      <div><div class="decision-label">Стратегия</div><div class="decision-value">equal weights</div></div>
+      <div><div class="decision-label">Holdout lower CI</div><div class="decision-value">0.4462</div></div>
     </div>
     <div class="weights-row">
+      <div class="weight-chip"><span class="weight-model">dr_learner</span> <span class="weight-val">0.333</span></div>
       <div class="weight-chip"><span class="weight-model">t_learner_lgb</span> <span class="weight-val">0.333</span></div>
-      <div class="weight-chip"><span class="weight-model">t_learner_ridge</span> <span class="weight-val">0.333</span></div>
       <div class="weight-chip"><span class="weight-model">hurdle</span> <span class="weight-val">0.333</span></div>
     </div>
-    <div class="explanation">T-LGB + T-Ridge + Hurdle achieves holdout lower CI = 0.4523. Notably T-Ridge was last in CV (0.1064) but contributes to winning ensemble — capturing different signal. High diversity: tree boosting vs linear vs two-stage models. Equal weighting outperforms complex schemes.</div>
-  </div>
-</section>
-
-<section>
-  <div class="section-label">Step 4 — Final metrics</div>
-  <h2>Holdout <span>metrics</span></h2>
-  <div class="metrics-grid">
-    <div class="metric-card"><div class="metric-name">uplift@5%</div><div class="metric-value good">0.6160</div><div class="metric-sub">lower 80% CI</div></div>
-    <div class="metric-card"><div class="metric-name">uplift@10%</div><div class="metric-value good">0.4494</div><div class="metric-sub">lower 80% CI</div></div>
-    <div class="metric-card"><div class="metric-name">uplift@20%</div><div class="metric-value">0.2752</div><div class="metric-sub">lower 80% CI</div></div>
-    <div class="metric-card"><div class="metric-name">AUUC</div><div class="metric-value">4.2836</div><div class="metric-sub">normalized</div></div>
-    <div class="metric-card"><div class="metric-name">Qini</div><div class="metric-value">0.0305</div><div class="metric-sub">coefficient</div></div>
+    <div class="explanation">DR + T-LGB + Hurdle с equal weights: holdout lower CI = 0.4462. Максимальная методологическая разнообразность: doubly-robust, бустинг деревьев, двухступенчатая модель. Equal weighting избегает переобучения на валидационной статистике. T-Ridge последний по CV (0.1064) но входит в другие топ-комбинации — на больших данных с идеальным балансом линейная модель иногда добавляет сигнал.</div>
   </div>
 </section>
 
 <section style="background:var(--bg2)">
-  <div class="section-label">Step 5 — Significance</div>
-  <h2>Permutation <span>test</span></h2>
+  <div class="section-label">Финальные метрики</div>
+  <h2>Holdout <span>результаты</span></h2>
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="metric-name">uplift@5%</div><div class="metric-value good">0.6144</div><div class="metric-sub">нижняя 80% CI</div></div>
+    <div class="metric-card"><div class="metric-name">uplift@10%</div><div class="metric-value good">0.4462</div><div class="metric-sub">нижняя 80% CI</div></div>
+    <div class="metric-card"><div class="metric-name">uplift@20%</div><div class="metric-value">0.2715</div><div class="metric-sub">нижняя 80% CI</div></div>
+    <div class="metric-card"><div class="metric-name">AUUC</div><div class="metric-value">4.2828</div><div class="metric-sub">нормализованный</div></div>
+    <div class="metric-card"><div class="metric-name">Qini</div><div class="metric-value">0.0305</div><div class="metric-sub">коэффициент</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Permutation test</div>
+  <h2>Статистическая <span>значимость</span></h2>
   <div class="perm-box">
-    <div class="perm-result"><div class="perm-badge">✓ Significant (p &lt; 0.05)</div></div>
+    <div class="perm-result"><div class="perm-badge">✓ Значимо (p &lt; 0.05)</div></div>
     <div class="perm-stats">
-      <div><div class="perm-stat-label">Observed uplift@10</div><div class="perm-stat-value" style="color:var(--teal)">0.4599</div></div>
+      <div><div class="perm-stat-label">Observed uplift@10</div><div class="perm-stat-value" style="color:var(--teal)">0.4568</div></div>
       <div><div class="perm-stat-label">p-value</div><div class="perm-stat-value" style="color:var(--teal)">0.0000</div></div>
       <div><div class="perm-stat-label">Null mean ± std</div><div class="perm-stat-value">0.049 ± 0.008</div></div>
-      <div><div class="perm-stat-label">vs random</div><div class="perm-stat-value" style="color:var(--purple)">+839%</div></div>
+      <div><div class="perm-stat-label">vs случайного</div><div class="perm-stat-value" style="color:var(--purple)">+827%</div></div>
     </div>
   </div>
 </section>
 
 </div>
-
 <div class="page" id="page-lenta">
 
 <div class="ds-hero">
-  <div class="ds-badge">🛒 Public RCT</div>
+  <div class="ds-badge">🛒 Публичный RCT</div>
   <h1>Lenta <span>Retail</span></h1>
-  <p class="ds-desc">Russian grocery retailer marketing campaign. Binary response outcome. Large dataset with significant treatment/control imbalance (75/25). Available via scikit-uplift.</p>
+  <p class="ds-desc">Маркетинговая кампания российского продуктового ритейлера. Бинарный исход. Значительный дисбаланс treatment/control (75/25). Доступен через scikit-uplift.</p>
   <div class="meta-row">
-    <div class="meta-item"><span class="meta-label">Train</span><span class="meta-value">549,623 rows</span></div>
-    <div class="meta-item"><span class="meta-label">Test</span><span class="meta-value">137,406 rows</span></div>
-    <div class="meta-item"><span class="meta-label">Features</span><span class="meta-value">196 → 166</span></div>
-    <div class="meta-item"><span class="meta-label">Outcome</span><span class="meta-value">response_att (binary)</span></div>
-    <div class="meta-item"><span class="meta-label">Zero rate</span><span class="meta-value">89.2%</span></div>
+    <div class="meta-item"><span class="meta-label">Train</span><span class="meta-value">549 623 строки</span></div>
+    <div class="meta-item"><span class="meta-label">Test</span><span class="meta-value">137 406 строк</span></div>
+    <div class="meta-item"><span class="meta-label">Признаки</span><span class="meta-value">196 → 298 (с FE)</span></div>
+    <div class="meta-item"><span class="meta-label">Исход</span><span class="meta-value">response_att (бинарный)</span></div>
+    <div class="meta-item"><span class="meta-label">Доля нулей</span><span class="meta-value">89.2%</span></div>
     <div class="meta-item"><span class="meta-label">ATE</span><span class="meta-value">0.0071</span></div>
-    <div class="meta-item"><span class="meta-label">Balance</span><span class="meta-value">75.1% / 24.9%</span></div>
-    <div class="meta-item"><span class="meta-label">Source</span><span class="meta-value"><a href="https://github.com/maks-sh/scikit-uplift" target="_blank" style="color:var(--purple)">scikit-uplift ↗</a></span></div>
+    <div class="meta-item"><span class="meta-label">Баланс</span><span class="meta-value">75.1% / 24.9%</span></div>
+    <div class="meta-item"><span class="meta-label">Источник</span><span class="meta-value"><a href="https://github.com/maks-sh/scikit-uplift" target="_blank" style="color:var(--purple)">scikit-uplift ↗</a></span></div>
   </div>
 </div>
 
 <section>
-  <div class="section-label">Step 1 — Data validation</div>
-  <h2>Validation <span>results</span></h2>
+  <div class="section-label">Валидация</div>
+  <h2>Проверка <span>качества данных</span></h2>
   <div class="info-grid">
-    <div class="info-card"><div class="info-label">Randomization</div><div class="info-value">145 imbalanced / 194. Large dataset — even tiny differences are significant. Randomization acceptable.</div></div>
-    <div class="info-card"><div class="info-label">Leakage</div><div class="info-value" style="color:var(--teal)">✓ No leakage detected.</div></div>
-    <div class="info-card"><div class="info-label">Balance</div><div class="info-value" style="color:var(--amber)">⚠️ 75.1% / 24.9% — significant imbalance. Larger control group affects propensity-based models.</div></div>
-    <div class="info-card"><div class="info-label">Note</div><div class="info-value">Despite imbalance, large dataset (550K) provides enough data. DR-learner still ranks #1.</div></div>
+    <div class="info-card"><div class="info-label">Рандомизация</div><div class="info-value">145 несбалансированных признаков из 194. При 550K строк тест сверхмощный — даже микро-различия значимы. Рандомизация приемлемая.</div></div>
+    <div class="info-card"><div class="info-label">Data leakage</div><div class="info-value" style="color:var(--teal)">✓ Не обнаружен.</div></div>
+    <div class="info-card"><div class="info-label">Баланс групп</div><div class="info-value" style="color:var(--amber)">⚠️ 75.1% / 24.9% — существенный дисбаланс. Большой control-group размер влияет на propensity-based модели.</div></div>
+    <div class="info-card"><div class="info-label">Feature Engineering</div><div class="info-value">FE агент добавил 46 признаков при 196 исходных → 298 итого. При таком количестве признаков FE добавил небольшой шум.</div></div>
   </div>
 </section>
 
 <section style="background:var(--bg2)">
-  <div class="section-label">Step 2 — Cross-validation</div>
-  <h2>CV results <span>all 6 models</span></h2>
-  <p style="color:var(--text-dim);font-size:14px;margin-bottom:24px">Fast mode: 100K sample, 3-fold CV, bootstrap n=100. Metric: uplift@10 lower 80% CI.</p>
+  <div class="section-label">EDA</div>
+  <h2>Анализ <span>данных</span></h2>
+  <div class="figures-grid">
+    <div class="figure-wrap"><div class="figure-label">Распределение исхода</div><img src="assets/lenta/eda_outcome.png" alt="Outcome"></div>
+    <div class="figure-wrap"><div class="figure-label">Баланс групп</div><img src="assets/lenta/eda_balance.png" alt="Balance"></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Кросс-валидация</div>
+  <h2>CV результаты <span>всех 6 моделей</span></h2>
   <table class="cv-table">
-    <thead><tr><th>#</th><th>Model</th><th>CV point</th><th>CV lower CI</th><th>Gap</th></tr></thead>
+    <thead><tr><th>#</th><th>Модель</th><th>CV point</th><th>CV lower CI</th><th>Gap</th></tr></thead>
     <tbody>
       <tr class="best"><td class="rank-1">1</td><td class="model-name">DR-learner</td><td>0.0351</td><td class="rank-1">0.0118</td><td>0.023</td></tr>
       <tr><td class="rank-2">2</td><td class="model-name">R-learner</td><td>0.0231</td><td class="rank-2">0.0001</td><td>0.023</td></tr>
@@ -775,113 +797,121 @@ cp .env.example .env <span class="c-dim"># add ANTHROPIC_API_KEY</span><br><br>
       <tr><td>6</td><td class="model-name">X-learner</td><td>0.0125</td><td>-0.0115</td><td>0.024</td></tr>
     </tbody>
   </table>
-  <p style="color:var(--text-dim);font-size:13px;margin-top:16px">Key insight: DR-learner #1 despite 75/25 imbalance — large dataset compensates. X-learner last in CV but enters winning ensemble.</p>
+  <p style="color:var(--text-dim);font-size:13px;margin-top:12px">⚡ DR-learner #1 несмотря на дисбаланс 75/25 — большой датасет (550K) компенсирует. X-learner последний по CV (-0.0115), но входит в winning ensemble в других запусках.</p>
 </section>
 
-<section>
-  <div class="section-label">Step 2 — Visualization</div>
-  <h2>Model <span>comparison</span></h2>
+<section style="background:var(--bg2)">
+  <div class="section-label">Визуализация</div>
+  <h2>Сравнение <span>моделей</span></h2>
   <div class="figures-grid">
     <div class="figure-wrap"><div class="figure-label">CV point vs lower CI</div><img src="assets/lenta/model_comparison.png" alt="Model comparison"></div>
   </div>
 </section>
 
-<section style="background:var(--bg2)">
-  <div class="section-label">Step 3 — Ensemble</div>
-  <h2>Agent <span>recommendation</span></h2>
+<section>
+  <div class="section-label">Ансамбль</div>
+  <h2>Решение <span>агента</span></h2>
   <div class="agent-box">
     <div class="agent-header">
       <div class="agent-icon">🤖</div>
-      <div><div class="agent-title">Ensemble Agent</div><div class="agent-subtitle">claude-sonnet-4-5 · 108 combinations evaluated</div></div>
+      <div><div class="agent-title">Ensemble Agent</div><div class="agent-subtitle">claude-sonnet-4-5 · 108 комбинаций</div></div>
     </div>
     <div class="decision-row">
-      <div><div class="decision-label">Selected</div><div class="decision-value">DR + T-LGB + X-learner</div></div>
-      <div><div class="decision-label">Strategy</div><div class="decision-value">equal weights</div></div>
-      <div><div class="decision-label">Holdout lower CI</div><div class="decision-value">0.0253</div></div>
+      <div><div class="decision-label">Выбрано</div><div class="decision-value">T-LGB + T-Ridge + Hurdle</div></div>
+      <div><div class="decision-label">Стратегия</div><div class="decision-value">equal weights</div></div>
+      <div><div class="decision-label">Holdout lower CI</div><div class="decision-value">0.0220</div></div>
     </div>
     <div class="weights-row">
-      <div class="weight-chip"><span class="weight-model">dr_learner</span> <span class="weight-val">0.333</span></div>
       <div class="weight-chip"><span class="weight-model">t_learner_lgb</span> <span class="weight-val">0.333</span></div>
-      <div class="weight-chip"><span class="weight-model">x_learner</span> <span class="weight-val">0.333</span></div>
+      <div class="weight-chip"><span class="weight-model">t_learner_ridge</span> <span class="weight-val">0.333</span></div>
+      <div class="weight-chip"><span class="weight-model">hurdle</span> <span class="weight-val">0.333</span></div>
     </div>
-    <div class="explanation">DR + T-LGB + X-learner with equal weights achieves holdout lower CI = 0.0253 — 38% improvement over best single model. X-learner ranked last in CV (-0.0115) but contributes to the winning ensemble, demonstrating that holdout search is more reliable than CV ranking alone.</div>
-  </div>
-</section>
-
-<section>
-  <div class="section-label">Step 4 — Final metrics</div>
-  <h2>Holdout <span>metrics</span></h2>
-  <div class="metrics-grid">
-    <div class="metric-card"><div class="metric-name">uplift@5%</div><div class="metric-value good">0.0245</div><div class="metric-sub">lower 80% CI</div></div>
-    <div class="metric-card"><div class="metric-name">uplift@10%</div><div class="metric-value good">0.0230</div><div class="metric-sub">lower 80% CI</div></div>
-    <div class="metric-card"><div class="metric-name">uplift@20%</div><div class="metric-value">0.0104</div><div class="metric-sub">lower 80% CI</div></div>
-    <div class="metric-card"><div class="metric-name">AUUC</div><div class="metric-value">2.7940</div><div class="metric-sub">normalized</div></div>
-    <div class="metric-card"><div class="metric-name">Qini</div><div class="metric-value">0.0025</div><div class="metric-sub">coefficient</div></div>
+    <div class="explanation">T-LGB + T-Ridge + Hurdle: holdout lower CI = 0.022, улучшение +54% vs лучшей одиночной. DR-learner лучший по CV (0.0118) но не доминирует на holdout — на слабом сигнале (ATE=0.007) ансамбль из более простых моделей стабильнее.</div>
   </div>
 </section>
 
 <section style="background:var(--bg2)">
-  <div class="section-label">Step 5 — Significance</div>
-  <h2>Permutation <span>test</span></h2>
-  <div class="perm-box">
-    <div class="perm-result"><div class="perm-badge">✓ Significant (p &lt; 0.05)</div></div>
-    <div class="perm-stats">
-      <div><div class="perm-stat-label">Observed uplift@10</div><div class="perm-stat-value" style="color:var(--teal)">0.0351</div></div>
-      <div><div class="perm-stat-label">p-value</div><div class="perm-stat-value" style="color:var(--teal)">0.0000</div></div>
-      <div><div class="perm-stat-label">Null mean ± std</div><div class="perm-stat-value">0.006 ± 0.007</div></div>
-      <div><div class="perm-stat-label">vs random</div><div class="perm-stat-value" style="color:var(--purple)">+516%</div></div>
-    </div>
+  <div class="section-label">Финальные метрики</div>
+  <h2>Holdout <span>результаты</span></h2>
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="metric-name">uplift@5%</div><div class="metric-value good">0.0158</div><div class="metric-sub">нижняя 80% CI</div></div>
+    <div class="metric-card"><div class="metric-name">uplift@10%</div><div class="metric-value good">0.0210</div><div class="metric-sub">нижняя 80% CI</div></div>
+    <div class="metric-card"><div class="metric-name">uplift@20%</div><div class="metric-value">0.0117</div><div class="metric-sub">нижняя 80% CI</div></div>
+    <div class="metric-card"><div class="metric-name">AUUC</div><div class="metric-value">2.9589</div><div class="metric-sub">нормализованный</div></div>
+    <div class="metric-card"><div class="metric-name">Qini</div><div class="metric-value">0.0024</div><div class="metric-sub">коэффициент</div></div>
   </div>
 </section>
 
 <section>
-  <div class="section-label">Key finding</div>
-  <h2>Cross-dataset <span>insight</span></h2>
-  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:28px;max-width:700px">
+  <div class="section-label">Permutation test</div>
+  <h2>Статистическая <span>значимость</span></h2>
+  <div class="perm-box">
+    <div class="perm-result"><div class="perm-badge">✓ Значимо (p &lt; 0.05)</div></div>
+    <div class="perm-stats">
+      <div><div class="perm-stat-label">Observed uplift@10</div><div class="perm-stat-value" style="color:var(--teal)">0.0333</div></div>
+      <div><div class="perm-stat-label">p-value</div><div class="perm-stat-value" style="color:var(--teal)">0.0000</div></div>
+      <div><div class="perm-stat-label">Null mean ± std</div><div class="perm-stat-value">0.005 ± 0.006</div></div>
+      <div><div class="perm-stat-label">vs случайного</div><div class="perm-stat-value" style="color:var(--purple)">+553%</div></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--bg2)">
+  <div class="section-label">Ключевой вывод</div>
+  <h2>CV ranking ≠ <span>ensemble contribution</span></h2>
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:28px;max-width:700px">
     <p style="font-size:15px;line-height:1.7;color:var(--text-dim)">
-      X-learner ranked <span style="color:var(--coral)">last in CV</span> (lower CI = -0.0115) but was selected in the <span style="color:var(--teal)">winning ensemble</span>.<br><br>
-      This demonstrates: <strong style="color:var(--text)">CV ranking ≠ ensemble contribution</strong>. Holdout-based ensemble search is more reliable than greedy top-K selection.
+      X-learner — <span style="color:var(--coral)">последний по CV</span> (lower CI = -0.0115), но в предыдущих запусках без FE входил в <span style="color:var(--teal)">winning ensemble</span>.<br><br>
+      Это ключевой методологический инсайт: модель которая плохо работает поодиночке может добавлять ценный сигнал в комбинации с другими. Именно поэтому перебор всех 108 комбинаций важнее жадного выбора топ-3 по CV.
     </p>
   </div>
 </section>
 
 </div>
-
 <div class="page" id="page-synthetic">
 
 <div class="ds-hero">
-  <div class="ds-badge">🔬 Synthetic RCT</div>
+  <div class="ds-badge">🔬 Синтетический RCT</div>
   <h1>Synthetic <span>Dataset</span></h1>
-  <p class="ds-desc">Synthetically generated A/B test with known ground truth CATE. Used for ablation study: verifies that pipeline finds the effect when it is guaranteed to exist. τ(x) = 0.5 + 0.3·f₀ + 0.2·f₁.</p>
+  <p class="ds-desc">Синтетический A/B тест с известным ground truth CATE. Используется как ablation study: верифицирует что пайплайн находит эффект когда он гарантированно существует. τ(x) = 0.5 + 0.3·f₀ + 0.2·f₁.</p>
   <div class="meta-row">
-    <div class="meta-item"><span class="meta-label">Train</span><span class="meta-value">40,000 rows</span></div>
-    <div class="meta-item"><span class="meta-label">Test</span><span class="meta-value">10,000 rows</span></div>
-    <div class="meta-item"><span class="meta-label">Features</span><span class="meta-value">20 (Gaussian)</span></div>
-    <div class="meta-item"><span class="meta-label">Outcome</span><span class="meta-value">continuous, clipped at 0</span></div>
-    <div class="meta-item"><span class="meta-label">Zero rate</span><span class="meta-value">35.1%</span></div>
+    <div class="meta-item"><span class="meta-label">Train</span><span class="meta-value">40 000 строк</span></div>
+    <div class="meta-item"><span class="meta-label">Test</span><span class="meta-value">10 000 строк</span></div>
+    <div class="meta-item"><span class="meta-label">Признаки</span><span class="meta-value">20 → 52 (с FE)</span></div>
+    <div class="meta-item"><span class="meta-label">Исход</span><span class="meta-value">непрерывный, clipped at 0</span></div>
+    <div class="meta-item"><span class="meta-label">Доля нулей</span><span class="meta-value">35.1%</span></div>
     <div class="meta-item"><span class="meta-label">ATE</span><span class="meta-value">0.3671</span></div>
-    <div class="meta-item"><span class="meta-label">Balance</span><span class="meta-value">50.2% / 49.8%</span></div>
-    <div class="meta-item"><span class="meta-label">Generator</span><span class="meta-value">numpy (no external deps)</span></div>
+    <div class="meta-item"><span class="meta-label">Баланс</span><span class="meta-value">50.2% / 49.8%</span></div>
+    <div class="meta-item"><span class="meta-label">Генератор</span><span class="meta-value">numpy (без зависимостей)</span></div>
   </div>
 </div>
 
 <section>
-  <div class="section-label">Step 1 — Data validation</div>
-  <h2>Validation <span>results</span></h2>
+  <div class="section-label">Валидация</div>
+  <h2>Проверка <span>качества данных</span></h2>
   <div class="info-grid">
-    <div class="info-card"><div class="info-label">Randomization</div><div class="info-value">3 imbalanced features / 20. Expected from random generation.</div></div>
-    <div class="info-card"><div class="info-label">Leakage</div><div class="info-value" style="color:var(--teal)">✓ No leakage by construction.</div></div>
-    <div class="info-card"><div class="info-label">Balance</div><div class="info-value" style="color:var(--teal)">✓ 50.2% / 49.8% — perfect randomization.</div></div>
-    <div class="info-card"><div class="info-label">Purpose</div><div class="info-value">Sanity check: all models should perform well. If a model fails here, it has a bug — not a data issue.</div></div>
+    <div class="info-card"><div class="info-label">Рандомизация</div><div class="info-value">3 несбалансированных признака из 20. Ожидаемо для случайной генерации.</div></div>
+    <div class="info-card"><div class="info-label">Data leakage</div><div class="info-value" style="color:var(--teal)">✓ Не обнаружен по конструкции.</div></div>
+    <div class="info-card"><div class="info-label">Баланс групп</div><div class="info-value" style="color:var(--teal)">✓ 50.2% / 49.8% — идеальный баланс.</div></div>
+    <div class="info-card"><div class="info-label">Цель теста</div><div class="info-value">Sanity check: все модели должны работать хорошо. Если модель проваливается — баг в коде, не в данных.</div></div>
   </div>
 </section>
 
 <section style="background:var(--bg2)">
-  <div class="section-label">Step 2 — Cross-validation</div>
-  <h2>CV results <span>all 6 models</span></h2>
-  <p style="color:var(--text-dim);font-size:14px;margin-bottom:24px">All models perform well — confirms pipeline correctness. Metric: uplift@10 lower 80% CI.</p>
+  <div class="section-label">EDA</div>
+  <h2>Анализ <span>данных</span></h2>
+  <div class="figures-grid">
+    <div class="figure-wrap"><div class="figure-label">Распределение исхода</div><img src="assets/synthetic/eda_outcome.png" alt="Outcome"></div>
+    <div class="figure-wrap"><div class="figure-label">Баланс групп</div><img src="assets/synthetic/eda_balance.png" alt="Balance"></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Кросс-валидация</div>
+  <h2>CV результаты <span>всех 6 моделей</span></h2>
+  <p style="color:var(--text-dim);font-size:14px;margin-bottom:24px">Все модели работают хорошо — подтверждает корректность пайплайна.</p>
   <table class="cv-table">
-    <thead><tr><th>#</th><th>Model</th><th>CV point</th><th>CV lower CI</th><th>Gap</th></tr></thead>
+    <thead><tr><th>#</th><th>Модель</th><th>CV point</th><th>CV lower CI</th><th>Gap</th></tr></thead>
     <tbody>
       <tr class="best"><td class="rank-1">1</td><td class="model-name">R-learner</td><td>0.9274</td><td class="rank-1">0.9041</td><td>0.023</td></tr>
       <tr><td class="rank-2">2</td><td class="model-name">T-learner Ridge</td><td>0.9304</td><td class="rank-2">0.9015</td><td>0.029</td></tr>
@@ -891,139 +921,136 @@ cp .env.example .env <span class="c-dim"># add ANTHROPIC_API_KEY</span><br><br>
       <tr><td>6</td><td class="model-name">X-learner</td><td>0.9137</td><td>0.8837</td><td>0.030</td></tr>
     </tbody>
   </table>
-  <p style="color:var(--text-dim);font-size:13px;margin-top:16px">✓ All models achieve lower CI &gt; 0.88 — pipeline correctly detects the known treatment effect.</p>
+  <p style="color:var(--text-dim);font-size:13px;margin-top:12px">✓ Все модели достигают lower CI &gt; 0.88 — пайплайн корректно обнаруживает известный treatment effect.</p>
 </section>
 
-<section>
-  <div class="section-label">Step 2 — Visualization</div>
-  <h2>Model <span>comparison</span></h2>
+<section style="background:var(--bg2)">
+  <div class="section-label">Визуализация</div>
+  <h2>Сравнение <span>моделей</span></h2>
   <div class="figures-grid">
     <div class="figure-wrap"><div class="figure-label">CV point vs lower CI</div><img src="assets/synthetic/model_comparison.png" alt="Model comparison"></div>
   </div>
 </section>
 
-<section style="background:var(--bg2)">
-  <div class="section-label">Step 3 — Ensemble</div>
-  <h2>Agent <span>recommendation</span></h2>
+<section>
+  <div class="section-label">Ансамбль</div>
+  <h2>Решение <span>агента</span></h2>
   <div class="agent-box">
     <div class="agent-header">
       <div class="agent-icon">🤖</div>
-      <div><div class="agent-title">Ensemble Agent</div><div class="agent-subtitle">claude-sonnet-4-5 · 108 combinations evaluated</div></div>
+      <div><div class="agent-title">Ensemble Agent</div><div class="agent-subtitle">claude-sonnet-4-5 · 108 комбинаций</div></div>
     </div>
     <div class="decision-row">
-      <div><div class="decision-label">Selected</div><div class="decision-value">T-Ridge + X-learner + R-learner</div></div>
-      <div><div class="decision-label">Strategy</div><div class="decision-value">ci_weights</div></div>
-      <div><div class="decision-label">Holdout lower CI</div><div class="decision-value">0.8949</div></div>
+      <div><div class="decision-label">Выбрано</div><div class="decision-value">T-Ridge (single)</div></div>
+      <div><div class="decision-label">Стратегия</div><div class="decision-value">single</div></div>
+      <div><div class="decision-label">Holdout lower CI</div><div class="decision-value">0.8979</div></div>
     </div>
     <div class="weights-row">
-      <div class="weight-chip"><span class="weight-model">t_learner_ridge</span> <span class="weight-val">0.335</span></div>
-      <div class="weight-chip"><span class="weight-model">x_learner</span> <span class="weight-val">0.329</span></div>
-      <div class="weight-chip"><span class="weight-model">r_learner</span> <span class="weight-val">0.336</span></div>
+      <div class="weight-chip"><span class="weight-model">t_learner_ridge</span> <span class="weight-val">1.000</span></div>
     </div>
-    <div class="explanation">T-Ridge + X-learner + R-learner with CI weights achieves holdout lower CI = 0.8949. All three models have quasi-equal weights (~33%), confirming genuine diversity. R-learner (theoretically optimal), X-learner (imputation-based), T-Ridge (linear) represent fundamentally different CATE estimation approaches.</div>
-  </div>
-</section>
-
-<section>
-  <div class="section-label">Step 4 — Final metrics</div>
-  <h2>Holdout <span>metrics</span></h2>
-  <div class="metrics-grid">
-    <div class="metric-card"><div class="metric-name">uplift@5%</div><div class="metric-value good">0.9367</div><div class="metric-sub">lower 80% CI</div></div>
-    <div class="metric-card"><div class="metric-name">uplift@10%</div><div class="metric-value good">0.8918</div><div class="metric-sub">lower 80% CI</div></div>
-    <div class="metric-card"><div class="metric-name">uplift@20%</div><div class="metric-value">0.7844</div><div class="metric-sub">lower 80% CI</div></div>
-    <div class="metric-card"><div class="metric-name">AUUC</div><div class="metric-value">1.7445</div><div class="metric-sub">normalized</div></div>
-    <div class="metric-card"><div class="metric-name">Qini</div><div class="metric-value">0.1012</div><div class="metric-sub">coefficient</div></div>
+    <div class="explanation">Одна модель лучше любого ансамбля. T-Ridge бьёт все 107 комбинаций на holdout (0.8979 vs 0.8927 лучший ансамбль). На синтетических данных с линейным CATE (τ = 0.5 + 0.3·f₀ + 0.2·f₁) Ridge-регрессия точно соответствует истинной структуре. Ансамбль добавляет шум от более сложных моделей.</div>
   </div>
 </section>
 
 <section style="background:var(--bg2)">
-  <div class="section-label">Step 5 — Significance</div>
-  <h2>Permutation <span>test</span></h2>
-  <div class="perm-box">
-    <div class="perm-result"><div class="perm-badge">✓ Significant (p &lt; 0.05)</div></div>
-    <div class="perm-stats">
-      <div><div class="perm-stat-label">Observed uplift@10</div><div class="perm-stat-value" style="color:var(--teal)">0.9242</div></div>
-      <div><div class="perm-stat-label">p-value</div><div class="perm-stat-value" style="color:var(--teal)">0.0000</div></div>
-      <div><div class="perm-stat-label">Null mean ± std</div><div class="perm-stat-value">0.360 ± 0.028</div></div>
-      <div><div class="perm-stat-label">vs random</div><div class="perm-stat-value" style="color:var(--purple)">+157%</div></div>
-    </div>
+  <div class="section-label">Финальные метрики</div>
+  <h2>Holdout <span>результаты</span></h2>
+  <div class="metrics-grid">
+    <div class="metric-card"><div class="metric-name">uplift@5%</div><div class="metric-value good">0.9367</div><div class="metric-sub">нижняя 80% CI</div></div>
+    <div class="metric-card"><div class="metric-name">uplift@10%</div><div class="metric-value good">0.8903</div><div class="metric-sub">нижняя 80% CI</div></div>
+    <div class="metric-card"><div class="metric-name">uplift@20%</div><div class="metric-value">0.7781</div><div class="metric-sub">нижняя 80% CI</div></div>
+    <div class="metric-card"><div class="metric-name">AUUC</div><div class="metric-value">1.7407</div><div class="metric-sub">нормализованный</div></div>
+    <div class="metric-card"><div class="metric-name">Qini</div><div class="metric-value">0.1013</div><div class="metric-sub">коэффициент</div></div>
   </div>
 </section>
 
 <section>
-  <div class="section-label">Key finding</div>
+  <div class="section-label">Permutation test</div>
+  <h2>Статистическая <span>значимость</span></h2>
+  <div class="perm-box">
+    <div class="perm-result"><div class="perm-badge">✓ Значимо (p &lt; 0.05)</div></div>
+    <div class="perm-stats">
+      <div><div class="perm-stat-label">Observed uplift@10</div><div class="perm-stat-value" style="color:var(--teal)">0.9325</div></div>
+      <div><div class="perm-stat-label">p-value</div><div class="perm-stat-value" style="color:var(--teal)">0.0000</div></div>
+      <div><div class="perm-stat-label">Null mean ± std</div><div class="perm-stat-value">0.361 ± 0.028</div></div>
+      <div><div class="perm-stat-label">vs случайного</div><div class="perm-stat-value" style="color:var(--purple)">+157%</div></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--bg2)">
+  <div class="section-label">Ключевой вывод</div>
   <h2>Ablation <span>study</span></h2>
-  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:28px;max-width:700px">
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:28px;max-width:700px">
     <p style="font-size:15px;line-height:1.7;color:var(--text-dim)">
-      All 6 models achieve lower CI &gt; 0.88 on synthetic data with <span style="color:var(--teal)">known CATE</span>.<br><br>
-      This confirms: <strong style="color:var(--text)">the pipeline correctly identifies treatment effects when they exist</strong>. Differences between real datasets reflect genuine data characteristics — not pipeline bugs.<br><br>
-      R-learner ranks #1 here (quasi-oracle property) but not on real datasets — confirming that theoretical optimality does not always translate to empirical superiority.
+      Все 6 моделей достигают lower CI &gt; 0.88 на синтетических данных с <span style="color:var(--teal)">известным CATE</span>.<br><br>
+      Это подтверждает: <strong style="color:var(--text)">пайплайн корректно обнаруживает treatment effect когда он существует</strong>. Различия между реальными датасетами отражают реальные свойства данных, а не баги.<br><br>
+      R-learner #1 здесь (квази-оракульное свойство) но не на реальных данных — теоретическая оптимальность не всегда переносится на практику.
     </p>
   </div>
 </section>
 
 </div>
-
 <div class="page" id="page-company">
 
 <div class="ds-hero">
   <div class="ds-badge">🏢 Your Company</div>
-  <h1>Run on your <span>data</span></h1>
-  <p class="ds-desc">AutoPrep-Uplift works on any marketing A/B test dataset. Bring your own data — the LLM agent handles preprocessing automatically, benchmarks all 6 models, and finds the optimal ensemble.</p>
+  <h1>Запустить на <span>ваших данных</span></h1>
+  <p class="ds-desc">AutoPrep-Uplift работает с любым маркетинговым A/B тестом. Приносите свои данные — LLM-агент автоматически обрабатывает их, бенчмаркирует все 6 моделей и находит оптимальный ансамбль.</p>
   <div class="meta-row">
-    <div class="meta-item"><span class="meta-label">Required</span><span class="meta-value">treatment_col, outcome_col</span></div>
-    <div class="meta-item"><span class="meta-label">Outcome type</span><span class="meta-value">binary or continuous</span></div>
-    <div class="meta-item"><span class="meta-label">Min size</span><span class="meta-value">~10K rows recommended</span></div>
-    <div class="meta-item"><span class="meta-label">Balance</span><span class="meta-value">any ratio supported</span></div>
+    <div class="meta-item"><span class="meta-label">Обязательно</span><span class="meta-value">treatment_col, outcome_col</span></div>
+    <div class="meta-item"><span class="meta-label">Тип исхода</span><span class="meta-value">binary or continuous</span></div>
+    <div class="meta-item"><span class="meta-label">Минимальный размер</span><span class="meta-value">~10K строк рекомендовано</span></div>
+    <div class="meta-item"><span class="meta-label">Баланс</span><span class="meta-value">любое соотношение</span></div>
   </div>
 </div>
 
 <section>
-  <div class="section-label">How to run</div>
+  <div class="section-label">Как запустить</div>
   <h2>Quick <span>start</span></h2>
   <div class="code-block" style="max-width:600px">
     <div class="code-header"><div class="code-dot" style="background:#ff5f56"></div><div class="code-dot" style="background:#ffbd2e"></div><div class="code-dot" style="background:#27c93f"></div></div>
     <div class="code-body">
-<span class="c-dim"># add your dataset loader to run_pipeline.py</span><br>
+<span class="c-dim"># добавь загрузчик в run_pipeline.py</span><br>
 <span class="c-purple">if</span> name == <span class="c-teal">'your_company'</span>:<br>
 &nbsp;&nbsp;df = pd.read_csv(<span class="c-teal">'data/your_data.csv'</span>)<br>
 &nbsp;&nbsp;df[<span class="c-teal">'user_id'</span>] = np.arange(len(df))<br>
 &nbsp;&nbsp;<span class="c-dim">... split train/test ...</span><br>
 &nbsp;&nbsp;<span class="c-purple">return</span> train, test<br><br>
-<span class="c-dim"># run</span><br>
+<span class="c-dim"># запускай</span><br>
 py run_pipeline.py --dataset your_company
     </div>
   </div>
 </section>
 
 <section style="background:var(--bg2)">
-  <div class="section-label">Results across datasets</div>
-  <h2>What to <span>expect</span></h2>
+  <div class="section-label">Результаты по датасетам</div>
+  <h2>Чего <span>ожидать</span></h2>
   <div class="info-grid">
-    <div class="info-card"><div class="info-label">50/50 balance</div><div class="info-value">DR-learner typically wins. Conditions similar to Magnit or Megafon.</div></div>
-    <div class="info-card"><div class="info-label">Imbalanced groups</div><div class="info-value">T-learner Ridge often beats DR. X-learner designed for this case.</div></div>
-    <div class="info-card"><div class="info-label">~90% zeros</div><div class="info-value">Hurdle model specialised for zero-inflated outcomes. Consider it first.</div></div>
-    <div class="info-card"><div class="info-label">Ensemble</div><div class="info-value">AI agent evaluates 108 combinations. Often better than best single model by 10–38%.</div></div>
+    <div class="info-card"><div class="info-label">Баланс 50/50</div><div class="info-value">DR-learner обычно лучший. Условия как у Magnit или Megafon.</div></div>
+    <div class="info-card"><div class="info-label">Дисбаланс групп</div><div class="info-value">T-learner Ridge часто бьёт DR. X-learner создан для этого случая.</div></div>
+    <div class="info-card"><div class="info-label">~90% нулей</div><div class="info-value">Hurdle-модель для zero-inflated исходов. Рассмотрите в первую очередь.</div></div>
+    <div class="info-card"><div class="info-label">Ансамбль</div><div class="info-value">AI-агент оценивает 108 комбинаций. Часто лучше одиночной модели на 10–38%.</div></div>
   </div>
 </section>
 
 <section>
-  <div class="section-label">Contact</div>
-  <h2>Get in <span>touch</span></h2>
-  <p style="color:var(--text-dim);font-size:16px;margin-bottom:32px">Interested in running AutoPrep-Uplift on your marketing data or collaborating on the research?</p>
+  <div class="section-label">Контакт</div>
+  <h2>Связаться <span>с нами</span></h2>
+  <p style="color:var(--text-dim);font-size:16px;margin-bottom:32px">Хотите запустить AutoPrep-Uplift на ваших данных или сотрудничать в исследовании?</p>
   <div style="display:flex;gap:16px;flex-wrap:wrap">
-    <a href="https://t.me/alli1ice" target="_blank" class="btn btn-primary">Contact on Telegram ↗</a>
-    <a href="https://github.com/allisksks/autoprep-uplift" target="_blank" class="btn btn-ghost">View on GitHub ↗</a>
+    <a href="https://t.me/alli1ice" target="_blank" class="btn btn-primary">Написать в Telegram ↗</a>
+    <a href="https://github.com/allisksks/autoprep-uplift" target="_blank" class="btn btn-ghost">Смотреть на GitHub ↗</a>
   </div>
 </section>
 
 </div>
 
 <footer>
-  <div class="footer-left">autoprep-uplift · work in progress · paper in preparation · 2026</div>
+  <div class="footer-left">autoprep-uplift · в разработке · статья готовится · 2026</div>
   <div class="footer-links">
     <a href="https://github.com/allisksks/autoprep-uplift" target="_blank">GitHub</a>
-    <a href="https://github.com/allisksks/autoprep-uplift/tree/main/experiments" target="_blank">Notebooks</a>
+    <a href="https://github.com/allisksks/autoprep-uplift/tree/main/experiments" target="_blank">Ноутбуки</a>
   </div>
 </footer>
 
