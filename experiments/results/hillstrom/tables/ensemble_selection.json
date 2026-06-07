@@ -1,21 +1,22 @@
 {
   "selected_models": [
     "t_learner_ridge",
+    "r_learner",
     "hurdle"
   ],
   "weights": {
-    "t_learner_ridge": 0.503,
-    "hurdle": 0.497
+    "t_learner_ridge": 0.39,
+    "r_learner": 0.264,
+    "hurdle": 0.346
   },
-  "strategy": "gap_weights",
-  "holdout_lower_ci": 0.1,
-  "explanation": "The t_learner_ridge+hurdle ensemble with gap_weights achieves the highest holdout lower CI (0.100) among all combinations, representing a 10.9% improvement over the best single model (hurdle at 0.0902). This combination is optimal for several reasons: (1) Both models are top performers in CV (0.0964 and 0.0898 point estimates), (2) They use fundamentally different approaches - Ridge regression vs. hurdle modeling - suggesting low correlation and high diversity, (3) Nearly equal weights (50.3%/49.7%) indicate both contribute meaningfully without one dominating, (4) Gap-based weighting (based on CV confidence interval widths) provides a principled approach that accounts for model uncertainty, and (5) The holdout performance significantly exceeds CV expectations (0.100 vs CV lower CIs of 0.0713 and 0.0634), suggesting genuine complementarity rather than overfitting.",
+  "strategy": "ci_weights",
+  "holdout_lower_ci": 0.0971,
+  "explanation": "The 3-model ensemble (t_learner_ridge + r_learner + hurdle) with ci_weights achieves the highest holdout lower CI (0.0971) across all 108 combinations tested. This represents a 2.9% improvement over the best single model (hurdle at 0.0944) and 1.1% improvement over the best pair. The CI-based weighting appropriately emphasizes t_learner_ridge (0.39) and hurdle (0.346) which had the strongest CV performance, while still incorporating r_learner (0.264) for diversity. These three models represent genuinely different approaches: t_learner_ridge (linear method), r_learner (residual-based), and hurdle (two-stage). This methodological diversity reduces overfitting risk. The fact that equal weighting (rank 4, 0.0954) performs nearly as well validates that this isn't a lucky weighting but rather reflects true complementarity among the models.",
   "alternatives_considered": [
-    "Single hurdle model (0.0902): Strong performer but ensemble provides 10.9% improvement in lower CI",
-    "Equal weights strategy (0.0895): Slightly underperforms gap_weights, suggesting differential weighting adds value",
-    "CI weights strategy (0.0984): Very close to gap_weights but slightly lower, gap-based approach better captures model stability",
-    "Single t_learner_ridge (0.075): Significantly underperforms its ensemble contribution, confirming value of diversity",
-    "Larger ensembles with all models: Results show they collapse to the same 2-model combination, indicating other models add noise rather than signal"
+    "Single hurdle model (0.0944): Strong baseline but leaves 2.9% performance on table",
+    "t_learner_ridge + hurdle pair with ci_weights (0.0960): Simpler 2-model option, but 3rd model (r_learner) adds meaningful lift (+1.1%)",
+    "Same 3-model combo with equal weights (0.0954): Slightly worse than ci_weights, confirming CV-informed weighting adds value",
+    "dr_learner combinations: Generally underperform despite being in CV results, showing holdout reveals its limitations"
   ],
-  "overfitting_assessment": "Low overfitting risk. Multiple indicators suggest robust generalization: (1) The improvement over single models is substantial (10.9%) and consistent across similar weighting strategies (gap_weights, ci_weights both ~0.098-0.100), (2) Both component models have reasonable CV performance with moderate gaps (0.025 and 0.026), (3) The near-equal weighting prevents over-reliance on any single model's idiosyncrasies, (4) The fact that equal weights also perform well (0.0895) suggests the combination is stable and not sensitive to exact weight calibration, and (5) Model diversity (linear Ridge vs. distributional Hurdle) provides complementary perspectives that likely capture different aspects of treatment heterogeneity. The holdout boost appears genuine rather than noise-fitting."
+  "overfitting_assessment": "Low overfitting risk. Key evidence: (1) The selected ensemble's CV performance aligns with holdout results - all three models had strong CV metrics (t_learner_ridge: 0.0964, hurdle: 0.0898, r_learner: 0.0705). (2) Multiple weighting strategies for this same model combination rank in top 4 (ci_weights #1, equal weights #4), indicating robustness. (3) The 2.9% improvement over single model is substantial but not extreme, suggesting real signal rather than noise fitting. (4) The models employ fundamentally different causal estimation approaches (linear separability, residualization, two-stage), making them unlikely to overfit in the same way. (5) The gap between CV point estimates and lower CIs is relatively consistent (0.022-0.026), indicating stable uncertainty quantification."
 }

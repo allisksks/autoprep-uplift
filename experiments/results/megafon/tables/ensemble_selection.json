@@ -1,22 +1,23 @@
 {
   "selected_models": [
+    "dr_learner",
     "t_learner_lgb",
-    "t_learner_ridge",
     "hurdle"
   ],
   "weights": {
+    "dr_learner": 0.333,
     "t_learner_lgb": 0.333,
-    "t_learner_ridge": 0.333,
     "hurdle": 0.333
   },
   "strategy": "equal",
-  "holdout_lower_ci": 0.4523,
-  "explanation": "The triple ensemble of t_learner_lgb + t_learner_ridge + hurdle with equal weights achieves the highest holdout lower CI (0.4523) across all 108 combinations evaluated. This represents a substantial 2.2% improvement over the best single model (0.4424). The combination is compelling because: (1) It includes models with very different CV performance profiles - hurdle leads CV (0.4004), t_learner_lgb is mid-tier (0.3620), and t_learner_ridge is weakest (0.1274), suggesting high diversity in their predictions. (2) The models use fundamentally different approaches: hurdle uses a two-stage process, t_learner uses separate treatment/control models, and ridge vs LGB provides algorithmic diversity. (3) Equal weighting outperforms sophisticated weighting schemes (ci_weights achieves only 0.4475), indicating the models complement each other well without needing optimization. (4) The weak CV performance of t_learner_ridge (0.1274) is counterintuitive but likely captures different signal - its inclusion boosts holdout performance, suggesting it identifies a complementary subset of responsive users.",
+  "holdout_lower_ci": 0.4462,
+  "explanation": "This three-model ensemble with equal weights achieves the highest holdout lower CI (0.4462) among all 108 combinations evaluated. The combination provides excellent model diversity: (1) hurdle is the CV leader with domain-specific structure for zero-inflated outcomes, (2) dr_learner uses doubly-robust estimation combining outcome and propensity models, and (3) t_learner_lgb represents direct treatment effect modeling with gradient boosting. These approaches are methodologically distinct, reducing correlation and ensemble variance. The equal weighting strategy is theoretically sound and empirically validated here—it outperforms complex weighting schemes (ci_weights: 0.4422, rank_weights: 0.4443) by avoiding overfitting to validation noise. The improvement over the best single model (0.4376) is substantial (+0.0086 or +2.0%), indicating genuine complementarity rather than noise.",
   "alternatives_considered": [
-    "t_learner_lgb + hurdle (rank_weights): 0.4510 - Strong performer but adding t_learner_ridge gains +13 basis points",
-    "t_learner_lgb + hurdle (equal): 0.4501 - Simpler 2-model ensemble, but loses the diversity benefit of t_learner_ridge",
-    "Single hurdle model: ~0.4424 - Best individual model but ensemble adds 99 basis points to lower CI",
-    "Larger ensembles with 4+ models: Not in top-20, suggesting diminishing returns and increased noise"
+    "dr_learner+x_learner+hurdle (0.4456): Very close performance but x_learner and dr_learner share methodological similarities through propensity score weighting, potentially reducing diversity",
+    "t_learner_lgb+r_learner+hurdle (0.4453): Also strong, but r_learner's residualization approach may overlap conceptually with t_learner's direct modeling",
+    "Two-model pairs (best: 0.4443): Simpler but sacrifice 0.0019 in holdout CI—the three-model ensemble clearly adds value",
+    "Complex weighting schemes: ci_weights and rank_weights consistently underperform equal weights, suggesting overfitting to CV statistics",
+    "Larger ensembles (all_models with 6 models: 0.4429): Adding weaker models like t_learner_ridge dilutes performance despite theoretical diversification benefits"
   ],
-  "overfitting_assessment": "Overfitting risk appears LOW. The selected ensemble shows consistent performance across weighting strategies (equal=0.4523, ci_weights=0.4475), indicating robustness. The gain over CV predictions is reasonable - hurdle CV lower CI was 0.3816 vs holdout ensemble 0.4523 (~18% gain), which is substantial but the consistency across strategies and the fact that simpler equal weighting wins suggests this is real signal rather than overfitting. The inclusion of a weak CV performer (t_learner_ridge) that improves holdout results is a positive sign of diversity rather than overfitting - it suggests the ensemble captures complementary patterns. The 2-model alternatives perform nearly as well (0.4501-0.4510), providing validation that the 3-model choice is stable."
+  "overfitting_assessment": "LOW RISK. Multiple indicators suggest this is a robust choice: (1) Equal weights are the simplest strategy, minimizing optimization-induced overfitting. (2) All three component models show reasonable CV performance (CV lower CIs: 0.3816, 0.3617, 0.3427) with similar gap sizes (0.0188-0.0198), indicating stable estimation. (3) The ensemble's holdout boost (+0.0086) over the best single model is meaningful but not excessive—extreme improvements would signal overfitting. (4) The combination appears in top positions across multiple weighting strategies, indicating robustness. (5) Three models balance bias-variance tradeoff better than pairs while avoiding the noise accumulation of larger ensembles. The methodological diversity (domain-specific hurdle model + doubly-robust estimation + direct effect learning) provides insurance against model misspecification on new data."
 }

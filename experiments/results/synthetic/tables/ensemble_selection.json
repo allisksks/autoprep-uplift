@@ -1,22 +1,18 @@
 {
   "selected_models": [
-    "t_learner_ridge",
-    "x_learner",
-    "r_learner"
+    "t_learner_ridge"
   ],
   "weights": {
-    "t_learner_ridge": 0.335,
-    "x_learner": 0.329,
-    "r_learner": 0.336
+    "t_learner_ridge": 1.0
   },
-  "strategy": "ci_weights",
-  "holdout_lower_ci": 0.8949,
-  "explanation": "The t_learner_ridge + x_learner + r_learner ensemble with CI-based weights achieves the highest holdout lower CI (0.8949) across all 108 combinations evaluated. This represents a 0.74 percentage point improvement over the best single model (t_learner_ridge at 0.8875), which is substantial for uplift modeling. The combination provides strong model diversity: R-learner directly models treatment effects, X-learner uses imputation and is designed for heterogeneous effects, while T-learner Ridge uses separate regularized models per treatment group. The CI-based weighting (near-equal at ~33% each) suggests all three models contribute meaningfully without one dominating. The ensemble outperforms the best 2-model combination (t_learner_ridge + x_learner at 0.8928) by 0.21 points, indicating the third model adds value rather than noise.",
+  "strategy": "single",
+  "holdout_lower_ci": 0.8979,
+  "explanation": "The single t_learner_ridge model outperforms all ensemble combinations by a significant margin (0.8979 vs 0.8927 for best ensemble). This is a clear signal that ensembling is adding noise rather than value. Key observations: (1) t_learner_ridge achieves the highest holdout lower CI despite having moderate CV performance (cv_lower_ci: 0.9015, ranked 2nd), (2) The gap between best single model and best ensemble (0.0052) is substantial in uplift modeling context, (3) All top-20 combinations include t_learner_ridge, confirming its dominance, (4) The model shows reasonable stability with a CV gap of 0.0289, which is mid-range among candidates. The fact that no ensemble improves upon this single model indicates that other models' predictions are either correlated with t_learner_ridge or add noise that degrades performance.",
   "alternatives_considered": [
-    "Single t_learner_ridge (0.8875): Strong baseline but ensemble provides +0.74 points improvement",
-    "t_learner_ridge + x_learner pair (0.8928): Good performance but adding r_learner gains additional +0.21 points",
-    "Equal weights variant (0.8929): Performed 0.20 points worse than CI weights, suggesting benefit from slight optimization",
-    "Other 3-model combinations: All scored lower, validating this specific model selection"
+    "dr_learner+t_learner_ridge+x_learner (equal weights, 0.8927 lower CI): Best ensemble option but still 0.0052 below single model. The 3-model diversity doesn't compensate for prediction noise.",
+    "t_learner_ridge+r_learner combinations (0.8778-0.8820 lower CI): Despite r_learner having best CV lower CI (0.9041), pairing it with t_learner_ridge consistently underperforms the single model, suggesting high correlation or r_learner's CV advantage doesn't transfer to holdout.",
+    "t_learner_lgb+t_learner_ridge (rank_weights, 0.8822 lower CI): Only 0.0157 below single model, but still inferior. Adding t_learner_lgb dilutes t_learner_ridge's strong signal.",
+    "All larger ensembles (4-6 models): None appear in top-20, indicating that adding more models beyond 3 consistently degrades performance."
   ],
-  "overfitting_assessment": "Low overfitting risk. The selected models show reasonable CV-holdout alignment: t_learner_ridge CV lower CI was 0.9015 vs holdout contribution in ensemble of ~0.8949, r_learner CV was 0.9041, x_learner CV was 0.8837. The ensemble holdout performance (0.8949) sits conservatively below individual CV estimates, suggesting robust generalization. The near-equal weighting (~33% each) indicates stability rather than over-optimization to validation data. The fact that CI-based weights only marginally outperform equal weights (+0.002) further supports that the combination is fundamentally sound rather than overfit to a specific weighting scheme."
+  "overfitting_assessment": "LOW RISK. The single model selection shows no signs of overfitting: (1) CV-to-holdout degradation is modest (0.9015 CV lower CI → 0.8979 holdout, only -0.0036 drop), (2) This degradation is smaller than most ensembles, which show larger CV-holdout gaps, (3) t_learner_ridge (ridge regression) has built-in regularization reducing overfitting risk, (4) The consistent superiority over 107 other combinations (including 63 ensembles) on holdout data provides strong evidence this is the true best performer, not a lucky artifact. The decision to avoid ensembling actually REDUCES overfitting risk by not fitting noise from weaker models."
 }
