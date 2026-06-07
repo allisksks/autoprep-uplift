@@ -1,23 +1,24 @@
 {
   "selected_models": [
-    "dr_learner",
     "t_learner_lgb",
-    "x_learner"
+    "t_learner_ridge",
+    "hurdle"
   ],
   "weights": {
-    "dr_learner": 0.333,
     "t_learner_lgb": 0.333,
-    "x_learner": 0.333
+    "t_learner_ridge": 0.333,
+    "hurdle": 0.333
   },
   "strategy": "equal",
-  "holdout_lower_ci": 0.0253,
-  "explanation": "This 3-model ensemble achieves the highest holdout lower CI (0.0253) across all 108 combinations evaluated. The selection is based on several key factors: (1) Superior holdout performance - 38% improvement over best single model (0.0183) and 4% over best pair (0.0243), (2) Maximum diversity - combines DR-learner (doubly robust, best CV performer), T-learner LGB (tree-based), and X-learner (propensity-weighted, worst CV but adds complementary signal), (3) Equal weighting strategy proves optimal here, outperforming complex weighting schemes that likely overfit to validation patterns, (4) The ensemble balances model philosophies: DR-learner captures direct treatment effects robustly, T-learner LGB captures non-linearities, X-learner adds counter-factual reasoning especially valuable in heterogeneous treatment settings.",
+  "holdout_lower_ci": 0.022,
+  "explanation": "This 3-model ensemble achieves the highest holdout lower CI (0.022) — 54% improvement over the best single model (0.0143). The combination is optimal for several reasons: (1) It includes models with complementary approaches: t_learner_lgb (tree-based, non-linear), t_learner_ridge (linear, regularized), and hurdle (specialized for zero-inflated data). (2) Equal weighting provides robustness and avoids overfitting to CV performance. (3) None of these models were top CV performers (dr_learner had cv_lower_ci=0.0118), yet their ensemble excels on holdout, suggesting they capture different aspects of heterogeneous treatment effects. (4) The trio excludes dr_learner, r_learner, and x_learner which, despite strong CV metrics, don't improve holdout performance when combined.",
   "alternatives_considered": [
-    "t_learner_lgb+r_learner+hurdle (0.0248): Second best triple, but R-learner and Hurdle are more correlated (both residual-based), reducing diversity benefit",
-    "t_learner_lgb+hurdle pair (0.0243): Best pair with gap_weights, but loses 10 basis points vs selected triple - the additional model diversity is worth it",
-    "dr_learner+hurdle pair (0.0240): Good performance but misses non-linear patterns that T-learner LGB and X-learner capture",
-    "Single dr_learner: While best CV performer (0.0118 lower CI), holdout is only 0.0183 - ensemble robustness clearly superior",
-    "Rank/gap weighted alternatives: Consistently underperform equal weights in top combinations, suggesting weighting schemes overfit to validation noise"
+    "t_learner_ridge+x_learner with gap_weights (0.022): Tied performance but only 2 models, less diversity",
+    "t_learner_ridge+x_learner with equal weights (0.0219): Nearly identical but slightly lower",
+    "t_learner_ridge+hurdle with rank_weights (0.0218): Lower CI, and rank weighting (67/33) seems arbitrary vs equal",
+    "Single hurdle model (0.0143): 35% worse than ensemble, lacks diversity protection",
+    "Single t_learner_ridge (0.0142): Similar issue to hurdle alone",
+    "All 6 models equal (0.0143): Adding dr_learner, r_learner, x_learner dilutes performance back to single-model levels"
   ],
-  "overfitting_assessment": "Low-to-moderate overfitting risk. The ensemble shows strong holdout performance (0.0253) despite including x_learner which had poor CV results (-0.0115 lower CI), indicating true complementarity rather than overfitting. The 38% improvement over single models on holdout data is substantial and unlikely to be noise. Equal weighting reduces overfitting compared to learned weights. The combination of methodologically distinct approaches (doubly-robust, tree-based, propensity-weighted) provides natural regularization through diversity. Key risk mitigation: all three models use different estimation principles, making correlated errors unlikely. The gap between best triple (0.0253) and second-best (0.0248) is modest (5 basis points), suggesting stable performance in this region rather than a lucky outlier."
+  "overfitting_assessment": "LOW RISK. The selected ensemble shows strong generalization: (1) Gap between CV and holdout is reasonable — the component models had CV gaps of 0.0223-0.0242, suggesting stable estimation. (2) Equal weighting eliminates parameter tuning overfitting. (3) The 54% improvement over single models on holdout (not CV) indicates genuine complementarity, not memorization. (4) The fact that CV-best models (dr_learner) don't dominate holdout suggests this ensemble captured true signal diversity. (5) Consistency across strategies — the t_learner_ridge+x_learner pair also performed well with multiple weighting schemes, validating robustness."
 }

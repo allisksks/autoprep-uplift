@@ -329,6 +329,21 @@ footer{padding:40px 80px;border-top:1px solid var(--border);display:flex;justify
 </section>
 
 <section style="background:var(--bg2)">
+  <div class="section-label">Ensemble</div>
+  <h2>6 <span>strategies</span> + auto</h2>
+  <p class="section-sub">All strategies evaluated on validation. AI agent picks the best for your chosen metric.</p>
+  <div class="ensemble-grid">
+    <div class="ensemble-card"><div class="ensemble-name">equal_weights</div><div class="ensemble-desc">Simple average. Competitive baseline for diverse model sets.</div></div>
+    <div class="ensemble-card"><div class="ensemble-name">gap_weights</div><div class="ensemble-desc">Inverse of train/val gap. Rewards stable models.</div></div>
+    <div class="ensemble-card"><div class="ensemble-name">ci_weights</div><div class="ensemble-desc">Proportional to cv_lower_ci. Best by stability get most weight.</div></div>
+    <div class="ensemble-card"><div class="ensemble-name">rank_weights</div><div class="ensemble-desc">1/rank weighting. Softer than ci_weights.</div></div>
+    <div class="ensemble-card"><div class="ensemble-name">pairwise_best</div><div class="ensemble-desc">Tries all model pairs, picks best combination of two.</div></div>
+    <div class="ensemble-card"><div class="ensemble-name">best_single</div><div class="ensemble-desc">No ensemble — baseline to verify ensemble adds value.</div></div>
+  </div>
+  <p style="color:var(--text-dim);font-size:14px">Agent evaluates <strong style="color:var(--text)">108 combinations</strong> (single models, all pairs, triples, all-6) across all strategies on holdout data — then explains the winner.</p>
+</section>
+
+<section style="background:var(--bg2)">
   <div class="section-label">Quick start</div>
   <h2>Get <span>started</span></h2>
   <div class="code-block">
@@ -337,13 +352,17 @@ footer{padding:40px 80px;border-top:1px solid var(--border);display:flex;justify
 <span class="c-dim"># Windows</span><br>
 py -m venv .venv<br>
 .\.venv\Scripts\Activate.ps1<br>
-py -m pip install -r requirements.txt<br><br>
+py -m pip install -r requirements.txt<br>
+copy .env.example .env <span class="c-dim"># add ANTHROPIC_API_KEY</span><br><br>
 <span class="c-dim"># macOS / Linux</span><br>
 python3 -m venv .venv<br>
 source .venv/bin/activate<br>
-pip install -r requirements.txt<br><br>
-<span class="c-dim"># run full pipeline</span><br>
-<span class="c-purple">python</span> run_full_pipeline.py
+pip install -r requirements.txt<br>
+cp .env.example .env <span class="c-dim"># add ANTHROPIC_API_KEY</span><br><br>
+<span class="c-dim"># run on any dataset</span><br>
+<span class="c-purple">py</span> run_pipeline.py --dataset hillstrom<br>
+<span class="c-purple">py</span> run_pipeline.py --dataset lenta<br>
+<span class="c-purple">py</span> run_pipeline.py --dataset megafon
     </div>
   </div>
 </section>
