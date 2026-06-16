@@ -132,7 +132,7 @@ predictions.csv
 | R-learner | Robinson decomposition | Теоретически оптимальный |
 | **Hurdle** | P(Y>0) × E[Y\|Y>0] | Zero-inflated outcome (>70% нулей) |
 
-### Антиовёрфиттинг (5 проверок)
+### Антиоверфиттинг (5 проверок)
 
 Перед обучением:
 - **Randomization check** — t-test и chi-square по каждому признаку между treatment и control
