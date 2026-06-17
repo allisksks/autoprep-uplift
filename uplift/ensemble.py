@@ -16,11 +16,10 @@ uplift/ensemble.py
 import numpy as np
 import pandas as pd
 from itertools import combinations
-from typing import Dict, List, Tuple, Optional, Callable
+from typing import Dict, List, Tuple, Optional
 from sklearn.linear_model import Ridge
-from sklearn.model_selection import KFold
 
-from .metrics import uplift_at_k, evaluate
+from .metrics import evaluate
 
 SEED = 42
 
@@ -298,7 +297,7 @@ class UpliftEnsemble:
         df = pd.DataFrame(rows).sort_values('val_score', ascending=False)
 
         print(f'\nЛучшая стратегия: {self._best_strategy}')
-        print(f'\nВеса моделей:')
+        print('\nВеса моделей:')
         for m, w in sorted(self._weights.items(),
                            key=lambda x: x[1], reverse=True):
             if w > 0:
@@ -341,7 +340,7 @@ class UpliftEnsemble:
                     best_strategy = strategy
                     best_weights  = weights
 
-            except Exception as e:
+            except Exception:
                 self._strategy_scores[strategy] = None
                 continue
 

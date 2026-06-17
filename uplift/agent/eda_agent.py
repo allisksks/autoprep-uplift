@@ -20,7 +20,7 @@ import traceback
 import numpy as np
 import pandas as pd
 from scipy import stats as scipy_stats
-from typing import Tuple, Dict, Any, List, Optional
+from typing import Tuple, Dict, Any, List
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -520,7 +520,7 @@ def _verify_fe_code(
     num_result = result[feat_cols].select_dtypes(include=[np.number])
     inf_count = np.isinf(num_result.values).sum()
     if inf_count > 0:
-        return False, f'Inf values found after FE — clip values properly'
+        return False, 'Inf values found after FE — clip values properly'
 
     # JSON check
     try:
@@ -607,8 +607,6 @@ def generate_features(
     # Топ по корреляции
     sorted_corr = sorted(corr_with_outcome.items(), key=lambda x: abs(x[1]), reverse=True)
     top_corr = dict(sorted_corr[:15])
-    highly_skewed = [k for k, v in skewness.items() if abs(v) > 2]
-    moderately_skewed = [k for k, v in skewness.items() if 1 < abs(v) <= 2]
 
     # Формируем промпт
     skewness_info = '\n'.join([
@@ -701,7 +699,7 @@ def generate_features(
         result_sample = namespace['apply_features'](df_sample.copy(), fe_stats)
         n_new = len(result_sample.columns) - len(train_proc.columns)
         n_total = len([c for c in result_sample.columns if c not in service])
-        print(f'FE Agent: готово.')
+        print('FE Agent: готово.')
         print(f'  Новых признаков создано: {n_new}')
         print(f'  Всего признаков: {n_total}')
 

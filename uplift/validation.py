@@ -13,7 +13,7 @@ uplift/validation.py
 
 import numpy as np
 import pandas as pd
-from typing import Dict, List, Tuple, Callable, Optional
+from typing import List, Callable, Optional
 from scipy import stats
 from sklearn.model_selection import KFold
 
@@ -274,7 +274,7 @@ def learning_curves(
         try:
             scores = model_fn(Xt, yt, Xc, yc, X_hold)
             pt, lo, hi = uplift_at_k(y_hold, w_hold, scores, k=k, n_boot=n_boot)
-        except Exception as e:
+        except Exception:
             pt, lo, hi = 0.0, 0.0, 0.0
 
         results.append({
