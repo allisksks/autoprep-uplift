@@ -31,3 +31,12 @@ jobs:
         env:
           ANTHROPIC_API_KEY: "ci-dummy-key-not-used"
         run: pytest -q
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build -t autoprep-uplift .
+      - name: Smoke-run image
+        run: docker run --rm autoprep-uplift
