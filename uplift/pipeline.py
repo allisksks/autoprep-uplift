@@ -13,15 +13,14 @@ uplift/pipeline.py
     pipe.predict(test_df, output_path='predictions.csv')
 """
 
-import os
 import json
 import numpy as np
 import pandas as pd
 from typing import Optional, Dict, Tuple, List
 
-from .metrics import uplift_at_k, auuc, qini_coefficient, train_val_gap, summary_table
+from .metrics import uplift_at_k, summary_table
 from .models import DRLearner, TLearnerLGB, TLearnerRidge, XLearner, RLearner, HurdleLearner
-from sklearn.model_selection import KFold, train_test_split
+from sklearn.model_selection import KFold
 
 SEED = 42
 
