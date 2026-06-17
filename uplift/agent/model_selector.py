@@ -15,7 +15,7 @@ import json
 import numpy as np
 import pandas as pd
 from itertools import combinations
-from typing import Dict, Tuple, List, Optional
+from typing import Dict, Tuple
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -73,7 +73,6 @@ def _compute_all_combinations(
     Перебирает все возможные комбинации моделей и стратегий.
     Возвращает таблицу с результатами.
     """
-    from .eda_agent import _CLIENT as client
     from ..metrics import evaluate
 
     model_names = list(predictions.keys())
@@ -210,7 +209,7 @@ def select_ensemble(
 
     if verbose:
         print(f'  Проверено комбинаций: {len(combos_df)}')
-        print(f'\n  Топ-10 комбинаций:')
+        print('\n  Топ-10 комбинаций:')
         top10 = combos_df.head(10)[['combination','strategy','holdout_lower_ci','n_models']]
         print(top10.to_string(index=False))
 

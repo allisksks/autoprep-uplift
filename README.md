@@ -308,3 +308,15 @@ Telegram: [@alli1ice](https://t.me/alli1ice)
   url    = {https://github.com/allisksks/autoprep-uplift}
 }
 ```
+
+## Docker
+
+```bash
+docker build -t autoprep-uplift .
+docker run --rm autoprep-uplift
+```
+
+## CI/CD
+
+При каждом push/PR в `main` и `dev` GitHub Actions на Python 3.13 прогоняет
+линтер (ruff) и тесты (pytest). Конфиг: `.github/workflows/ci.yml`.

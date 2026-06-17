@@ -17,7 +17,6 @@ import numpy as np
 import pandas as pd
 from lightgbm import LGBMRegressor
 from lightgbm import early_stopping as lgb_es, log_evaluation as lgb_log
-from catboost import CatBoostRegressor
 from sklearn.linear_model import Ridge
 from sklearn.preprocessing import StandardScaler
 from sklearn.impute import SimpleImputer
