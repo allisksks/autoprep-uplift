@@ -4,6 +4,8 @@
 
 [![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)](https://python.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![CI](https://github.com/allisksks/autoprep-uplift/actions/workflows/ci.yml/badge.svg)](https://github.com/allisksks/autoprep-uplift/actions/workflows/ci.yml)
+[![Docker](https://img.shields.io/badge/docker-ready-2496ED?logo=docker&logoColor=white)](./Dockerfile)
 [![Status: Research](https://img.shields.io/badge/статус-research-orange.svg)]()
 [![Site](https://img.shields.io/badge/сайт-GitHub%20Pages-purple.svg)](https://allisksks.github.io/autoprep-uplift/)
 
